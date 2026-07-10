@@ -1,51 +1,69 @@
 # Sal Doce — Landing Page 🧁
 
 Landing page de alta conversão para a doçaria artesanal **Sal Doce** ([@saldoce.pt](https://www.instagram.com/saldoce.pt)).
-Página estática (HTML + CSS + JS), sem dependências, pronta a publicar.
+Site estático (HTML + CSS + JS), sem dependências, pronto a publicar.
 
-Especialidade: brigadeiros gourmet, bolos temáticos, cheesecakes/brownies, boxes e ovos de Páscoa.
-Paleta da marca: **rosa + creme/bege**. CTA principal: **encomenda por WhatsApp**.
+Especialidade: **bolos personalizados**, brigadeiros gourmet, cheesecakes, morango do amor e **salgados** para festa.
+Paleta da marca: **rosa + creme + menta (turquesa)**. Logótipo real incluído. As fotos em `assets/` são reais, do Instagram da marca.
 
-As fotos em `assets/` são reais, retiradas do Instagram da marca.
+## ✨ Destaques
+
+- **Bolos à frente** — hero e secção de destaque com os bolos.
+- **Chocolate a escorrer** — animação (drip) por baixo do hero.
+- **Carrossel automático** de fotos que passa sozinho.
+- **Cardápio de bolos** — massas, recheios e adicionais.
+- **Página de encomenda** (`encomenda.html`) — o cliente monta o pedido (bolo + brigadeiros + salgados),
+  descreve a decoração, escolhe tamanho/data e **envia o resumo direto para o WhatsApp**.
+- Botão flutuante de WhatsApp, menu mobile, animações on-scroll e 100% responsiva.
 
 ## Estrutura
 
 ```
-index.html    → conteúdo e secções
-styles.css    → design e responsividade (paleta em :root)
-script.js     → menu, animações e ligação ao WhatsApp
-assets/       → fotografias dos produtos (hero, cards, galeria)
+index.html      → página principal
+encomenda.html  → construtor de encomenda (→ WhatsApp)
+styles.css      → design e responsividade (paleta em :root)
+config.js       → nº de WhatsApp e Instagram (EDITAR)
+script.js       → menu, carrossel, chocolate a escorrer, animações
+encomenda.js    → lógica do pedido e mensagem de WhatsApp
+assets/         → logótipo e fotografias dos produtos
 ```
 
 ## ⚙️ Personalizar (importante)
 
-Abra **`script.js`** e edite o bloco de configuração no topo:
+Abra **`config.js`** e edite:
 
 ```js
-const SALDOCE = {
+window.SALDOCE = {
   whatsapp: "351000000000",  // número real, só dígitos, com indicativo (351 = Portugal)
   instagram: "https://www.instagram.com/saldoce.pt",
 };
 ```
 
-- **WhatsApp:** substitua `351000000000` pelo número real (formato internacional, sem `+`, espaços ou traços). Todos os botões passam a abrir uma conversa já com mensagem pré-preenchida.
+- **WhatsApp:** substitua `351000000000` pelo número real (formato internacional, sem `+`, espaços ou traços).
+  Todos os botões e o envio do pedido passam a abrir a conversa certa, com a mensagem já preenchida.
 - **Instagram:** confirme o link.
 
-### Trocar textos e preços
-Edite diretamente em `index.html` (secção `#produtos` para os cards e preços).
+### Textos, cardápio e sabores
+- Cardápio e produtos: edite `index.html`.
+- Opções da encomenda (recheios, massas, sabores de brigadeiro, salgados): estão em `encomenda.html`
+  (recheios/massas) e no topo de `encomenda.js` (listas `BRIGADEIROS` e `SALGADOS`).
 
-### Trocar as fotos
-As imagens estão em `assets/` e são referenciadas em `index.html` (hero, cards de produto e galeria).
-Para atualizar, substitua os ficheiros mantendo o mesmo nome, ou aponte os `<img src="...">` para novas fotos.
+### Fotos e logótipo
+As imagens estão em `assets/`. Para atualizar, substitua os ficheiros mantendo o mesmo nome
+(ou aponte os `<img src="...">` para novas fotos).
 
-### Ajustar cores
-As cores estão centralizadas no topo de `styles.css`, em `:root` (`--rosa`, `--creme`, `--bege`, etc.).
+### Cores
+Centralizadas no topo de `styles.css`, em `:root` (`--rosa`, `--menta`, `--creme`, etc.).
 
 ## 🚀 Publicar
 
-**GitHub Pages:** Settings → Pages → Deploy from branch → `main` (ou a branch atual) / root.
+**GitHub Pages:** Settings → Pages → Deploy from branch → selecione a branch / root.
 
-**Localmente:** basta abrir `index.html` no navegador.
+**Localmente / Termux:**
+```bash
+python -m http.server 8080
+# abrir http://localhost:8080
+```
 
 ---
 Feito com 🍓 em Portugal.

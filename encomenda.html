@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#E8709B" />
+  <title>Fazer encomenda — Sal Doce</title>
+  <meta name="description" content="Monte a sua encomenda na Sal Doce: bolo personalizado, brigadeiros e salgados. Envie o pedido resumido no WhatsApp." />
+  <meta name="robots" content="index,follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Sal Doce — início">
+        <img src="assets/logo.png" alt="Sal Doce" class="brand-logo" />
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="index.html#bolos">Bolos</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#cardapio">Cardápio</a>
+        <a href="index.html#galeria">Galeria</a>
+      </nav>
+      <a href="index.html" class="btn btn-ghost btn-sm nav-cta">← Voltar ao site</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <section class="order-hero">
+    <div class="container">
+      <span class="eyebrow">🧾 Monte o seu pedido</span>
+      <h1>Faça a sua encomenda</h1>
+      <p>Escolha o que quiser — bolo, brigadeiros e/ou salgados. No fim, o resumo do pedido segue direto para o nosso WhatsApp. 🎀</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="order-wrap">
+
+      <!-- ===== COLUNA DE OPÇÕES ===== -->
+      <div class="order-form">
+
+        <!-- ---- BOLO ---- -->
+        <section class="order-block open" data-block="bolo">
+          <header data-toggle>
+            <div class="ob-ico">🎂</div>
+            <div><h2>Bolo personalizado</h2><div class="ob-sub">Massa, recheio, tamanho e decoração</div></div>
+            <div class="ob-tog" aria-hidden="true">+</div>
+          </header>
+          <div class="order-body">
+            <div class="field">
+              <label class="flabel">Massa <span class="opt">(escolha uma)</span></label>
+              <div class="chips" data-group="massa">
+                <label class="chip"><input type="radio" name="massa" value="Pão de ló"><span>Pão de ló</span></label>
+                <label class="chip"><input type="radio" name="massa" value="Massa de chocolate"><span>Massa de chocolate</span></label>
+                <label class="chip"><input type="radio" name="massa" value="Massa red velvet"><span>Red velvet</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="flabel">Recheios <span class="opt">(pode escolher vários)</span></label>
+              <div class="chips" data-group="recheio">
+                <label class="chip"><input type="checkbox" name="recheio" value="Brigadeiro tradicional"><span>Brigadeiro tradicional</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Brigadeiro de ninho"><span>Brigadeiro de ninho</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Brigadeiro branco"><span>Brigadeiro branco</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Beijinho"><span>Beijinho</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Doce de leite"><span>Doce de leite</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Doce de morango"><span>Doce de morango</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Doce de maracujá"><span>Doce de maracujá</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Praline de chocolate"><span>Praline de chocolate</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Nutella"><span>Nutella</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Chantilly"><span>Chantilly</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Ferrero"><span>Ferrero</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Oreo"><span>Oreo</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Kinder Bueno"><span>Kinder Bueno</span></label>
+                <label class="chip"><input type="checkbox" name="recheio" value="Kit Kat crocante"><span>Kit Kat crocante</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="flabel">Adicionais <span class="opt">(opcional)</span></label>
+              <div class="chips" data-group="adicional">
+                <label class="chip menta"><input type="checkbox" name="adicional" value="Fruta"><span>🍓 Fruta</span></label>
+                <label class="chip menta"><input type="checkbox" name="adicional" value="Frutos secos"><span>🥜 Frutos secos</span></label>
+              </div>
+            </div>
+
+            <div class="row2">
+              <div class="field">
+                <label class="flabel" for="tamanho">Tamanho</label>
+                <select id="tamanho" class="input">
+                  <option value="">Escolher…</option>
+                  <option value="1 kg">1 kg (≈ 8–10 fatias)</option>
+                  <option value="1,5 kg">1,5 kg (≈ 12–15 fatias)</option>
+                  <option value="2 kg">2 kg (≈ 16–20 fatias)</option>
+                  <option value="2,5 kg">2,5 kg (≈ 20–25 fatias)</option>
+                  <option value="3 kg">3 kg (≈ 25–30 fatias)</option>
+                  <option value="4 kg">4 kg (≈ 35–40 fatias)</option>
+                  <option value="A combinar">A combinar</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="flabel" for="data">Data pretendida</label>
+                <input type="date" id="data" class="input">
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom:6px">
+              <label class="flabel" for="decoracao">Decoração <span class="opt">(tema, cores, texto no bolo…)</span></label>
+              <textarea id="decoracao" class="input" placeholder="Ex.: tema unicórnio, tons pastel, escrito “Parabéns Sofia”…"></textarea>
+              <p class="hint">📷 Tem uma foto de referência? Perfeito! Depois de enviar o pedido, é só anexá-la na conversa do WhatsApp.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- BRIGADEIROS ---- -->
+        <section class="order-block blk-menta" data-block="brigadeiro">
+          <header data-toggle>
+            <div class="ob-ico">🍫</div>
+            <div><h2>Brigadeiros gourmet</h2><div class="ob-sub">Indique a quantidade (dúzias) por sabor</div></div>
+            <div class="ob-tog" aria-hidden="true">+</div>
+          </header>
+          <div class="order-body">
+            <div class="qty-list" data-qtygroup="brigadeiro" data-unit="dúzia(s)">
+              <!-- preenchido por JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- SALGADOS ---- -->
+        <section class="order-block" data-block="salgado">
+          <header data-toggle>
+            <div class="ob-ico">🥟</div>
+            <div><h2>Salgados para festa</h2><div class="ob-sub">Indique a quantidade (unidades) por opção</div></div>
+            <div class="ob-tog" aria-hidden="true">+</div>
+          </header>
+          <div class="order-body">
+            <div class="qty-list" data-qtygroup="salgado" data-unit="unid.">
+              <!-- preenchido por JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- CONTACTO ---- -->
+        <section class="order-block open" data-block="contacto">
+          <header data-toggle>
+            <div class="ob-ico">👤</div>
+            <div><h2>Os seus dados</h2><div class="ob-sub">Para confirmarmos a encomenda</div></div>
+            <div class="ob-tog" aria-hidden="true">+</div>
+          </header>
+          <div class="order-body">
+            <div class="field">
+              <label class="flabel" for="nome">Nome</label>
+              <input type="text" id="nome" class="input" placeholder="O seu nome" autocomplete="name">
+            </div>
+            <div class="field">
+              <label class="flabel" for="entrega">Entrega ou levantamento?</label>
+              <select id="entrega" class="input">
+                <option value="">Escolher…</option>
+                <option value="Levantamento">Levantamento</option>
+                <option value="Entrega">Entrega (combinar zona)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label class="flabel" for="obs">Observações <span class="opt">(opcional)</span></label>
+              <textarea id="obs" class="input" placeholder="Alergias, intolerâncias, hora, ou qualquer detalhe importante…"></textarea>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ===== RESUMO STICKY ===== -->
+      <aside class="summary" aria-label="Resumo do pedido">
+        <h2>O seu pedido</h2>
+        <p class="sum-sub">Atualiza automaticamente</p>
+        <div class="sum-body" id="sumBody">
+          <p class="sum-empty">Ainda não escolheu nada. Comece pelo bolo, brigadeiros ou salgados. 🧁</p>
+        </div>
+        <a href="#" class="btn btn-primary btn-block js-send" id="sendBtn" aria-disabled="true">
+          <span class="wa-icon" aria-hidden="true">💬</span> Enviar pedido no WhatsApp
+        </a>
+        <p class="micro">Abre o WhatsApp com o resumo já escrito.</p>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border:0; padding-top:0">
+      <p>© <span id="year"></span> Sal Doce. Todos os direitos reservados.</p>
+      <p><a href="index.html" style="color:rgba(255,255,255,.75)">← Voltar ao site</a></p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="encomenda.js"></script>
+</body>
+</html>

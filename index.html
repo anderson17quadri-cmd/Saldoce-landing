@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#E76F9E" />
-  <title>Sal Doce — Doçaria Artesanal | Encomende no WhatsApp</title>
-  <meta name="description" content="Sal Doce — brigadeiros gourmet, bolos temáticos, cheesecakes e doces artesanais feitos com amor. Faça já a sua encomenda pelo WhatsApp." />
+  <meta name="theme-color" content="#E8709B" />
+  <title>Sal Doce — Doçaria Artesanal | Bolos, Brigadeiros &amp; Salgados</title>
+  <meta name="description" content="Sal Doce — bolos personalizados, brigadeiros gourmet, cheesecakes e salgados artesanais. Monte a sua encomenda e envie pelo WhatsApp." />
 
-  <!-- Open Graph / social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Sal Doce — Doçaria Artesanal" />
-  <meta property="og:description" content="Brigadeiros gourmet, bolos temáticos e doces artesanais por encomenda. Encomende pelo WhatsApp." />
-  <meta property="og:image" content="assets/hero-bolo.jpg" />
+  <meta property="og:description" content="Bolos personalizados, brigadeiros gourmet e salgados por encomenda. Monte o seu pedido e envie pelo WhatsApp." />
+  <meta property="og:image" content="assets/cake-hero.webp" />
   <meta property="og:locale" content="pt_PT" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧁</text></svg>" />
+  <link rel="icon" href="assets/logo.png" />
 </head>
 <body>
 
@@ -27,20 +26,20 @@
   <header class="site-header" id="top">
     <div class="container nav">
       <a href="#top" class="brand" aria-label="Sal Doce — início">
-        <span class="brand-mark">🧁</span>
+        <img src="assets/logo.png" alt="Sal Doce" class="brand-logo" />
         <span class="brand-name">Sal Doce</span>
       </a>
 
       <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="#bolos">Bolos</a>
         <a href="#produtos">Produtos</a>
-        <a href="#vantagens">Porquê nós</a>
+        <a href="#cardapio">Cardápio</a>
         <a href="#como">Como encomendar</a>
         <a href="#galeria">Galeria</a>
-        <a href="#faq">FAQ</a>
       </nav>
 
-      <a href="#" class="btn btn-primary btn-sm nav-cta js-whatsapp" data-msg="Olá Sal Doce! Gostava de fazer uma encomenda.">
-        <span class="wa-icon" aria-hidden="true">💬</span> Encomendar
+      <a href="encomenda.html" class="btn btn-primary btn-sm nav-cta">
+        <span aria-hidden="true">🧾</span> Fazer encomenda
       </a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
@@ -57,143 +56,195 @@
     <div class="container hero-grid">
       <div class="hero-copy reveal">
         <span class="eyebrow">🎀 Doçaria artesanal • feito à mão</span>
-        <h1>Brigadeiros e bolos que <span class="hl">adoçam</span> os seus momentos.</h1>
+        <h1>Bolos que são o <span class="hl">coração</span> da sua festa.</h1>
         <p class="lead">
-          Brigadeiros gourmet, bolos temáticos, cheesecakes e doces feitos com
-          ingredientes de qualidade e muito carinho. Perfeitos para festas,
-          presentes ou um miminho do dia a dia.
+          Bolos personalizados, brigadeiros gourmet, cheesecakes e salgados —
+          feitos com ingredientes de qualidade e muito carinho. Escolha massa,
+          recheio e decoração à sua medida.
         </p>
 
         <div class="hero-cta">
-          <a href="#" class="btn btn-primary btn-lg js-whatsapp" data-msg="Olá Sal Doce! Vi o vosso site e gostava de fazer uma encomenda. 🧁">
-            <span class="wa-icon" aria-hidden="true">💬</span> Encomendar no WhatsApp
+          <a href="encomenda.html" class="btn btn-primary btn-lg">
+            <span aria-hidden="true">🧾</span> Montar a minha encomenda
           </a>
-          <a href="#produtos" class="btn btn-ghost btn-lg">Ver produtos</a>
+          <a href="#bolos" class="btn btn-ghost btn-lg">Ver bolos</a>
         </div>
 
         <ul class="hero-trust">
           <li><strong>+500</strong> encomendas felizes</li>
-          <li><strong>15+</strong> sabores de brigadeiro</li>
+          <li><strong>3</strong> massas &amp; +14 recheios</li>
           <li><strong>⭐ 5,0</strong> nas avaliações</li>
         </ul>
       </div>
 
       <div class="hero-visual reveal">
         <div class="hero-photo">
-          <img src="assets/hero-bolo.jpg" alt="Bolo temático de chocolate da Sal Doce com decoração e laço" loading="eager" width="640" height="800" />
+          <img src="assets/cake-hero.webp" alt="Bolo personalizado da Sal Doce, cor-de-rosa com detalhes dourados" loading="eager" width="640" height="800" />
         </div>
         <div class="hero-badge hero-badge-1">🍓 Ingredientes frescos</div>
-        <div class="hero-badge hero-badge-2">📦 Entrega combinada</div>
+        <div class="hero-badge hero-badge-2 menta">🎂 Bolos à sua medida</div>
+      </div>
+    </div>
+
+    <!-- chocolate a escorrer -->
+    <div class="container"><div class="drip" data-drip aria-hidden="true"></div></div>
+  </section>
+
+  <!-- ============ CARROSSEL AUTOMÁTICO ============ -->
+  <div class="strip" aria-label="Galeria de criações da Sal Doce">
+    <div class="strip-track" data-carousel>
+      <div class="strip-item"><img src="assets/cake-berry.webp" alt="Bolo com frutos vermelhos" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/cake-redbow.webp" alt="Bolo de chocolate com laço" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/kitkat.webp" alt="Sobremesa com Kit Kat e brigadeiro" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/cake-butterfly.webp" alt="Bolo temático com borboletas" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/brig-box.webp" alt="Caixa de brigadeiros variados" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/morango.webp" alt="Morango do amor" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/cake-strawberry.webp" alt="Bolo de morango" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/salgados.webp" alt="Salgadinhos para festa" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/cake-white.webp" alt="Bolo branco de aniversário" loading="lazy"></div>
+      <div class="strip-item"><img src="assets/box-mae.webp" alt="Box de presente" loading="lazy"></div>
+    </div>
+  </div>
+
+  <!-- ============ BOLOS EM DESTAQUE ============ -->
+  <section class="section" id="bolos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">⭐ As estrelas da casa</span>
+        <h2>Bolos personalizados</h2>
+        <p class="section-sub">Aniversários, batizados e celebrações. Você escolhe a massa, o recheio e a decoração — nós tratamos do resto.</p>
+      </div>
+
+      <div class="bolos reveal">
+        <figure class="bolo"><img src="assets/cake-redbow.webp" alt="Bolo de chocolate com laço vermelho e brigadeiros" loading="lazy"><figcaption class="bolo-tag">Bolo festa de chocolate</figcaption></figure>
+        <figure class="bolo"><img src="assets/cake-berry.webp" alt="Bolo com frutos vermelhos e chantilly" loading="lazy"><figcaption class="bolo-tag menta">Frutos vermelhos</figcaption></figure>
+        <figure class="bolo"><img src="assets/cake-butterfly.webp" alt="Bolo temático com borboletas" loading="lazy"><figcaption class="bolo-tag">Temático borboletas</figcaption></figure>
+        <figure class="bolo"><img src="assets/cake-strawberry.webp" alt="Bolo de morango em camadas" loading="lazy"><figcaption class="bolo-tag menta">Naked de morango</figcaption></figure>
+        <figure class="bolo"><img src="assets/cake-white.webp" alt="Bolo branco de aniversário" loading="lazy"><figcaption class="bolo-tag">Clássico de aniversário</figcaption></figure>
+      </div>
+
+      <div class="center reveal" style="margin-top:34px">
+        <a href="encomenda.html" class="btn btn-primary btn-lg"><span aria-hidden="true">🎂</span> Encomendar o meu bolo</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ MARQUEE / SOCIAL PROOF ============ -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Brigadeiros gourmet</span><span>•</span>
-      <span>Bolos temáticos</span><span>•</span>
-      <span>Cheesecakes</span><span>•</span>
-      <span>Doces em taça</span><span>•</span>
-      <span>Boxes para presente</span><span>•</span>
-      <span>Ovos de Páscoa</span><span>•</span>
-      <span>Brigadeiros gourmet</span><span>•</span>
-      <span>Bolos temáticos</span><span>•</span>
-      <span>Cheesecakes</span><span>•</span>
-      <span>Doces em taça</span><span>•</span>
-      <span>Boxes para presente</span><span>•</span>
-      <span>Ovos de Páscoa</span><span>•</span>
-    </div>
-  </div>
-
   <!-- ============ PRODUTOS ============ -->
-  <section class="section" id="produtos">
+  <section class="section section-alt" id="produtos">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">O nosso menu</span>
-        <h2>Feitos por encomenda, sempre fresquinhos</h2>
-        <p class="section-sub">Escolha os seus favoritos e fale connosco para personalizar sabores, tamanhos e decoração.</p>
+        <h2>Muito mais do que bolos</h2>
+        <p class="section-sub">Complete a sua mesa doce (e salgada!) com os nossos clássicos.</p>
       </div>
 
       <div class="cards">
         <article class="card reveal">
-          <div class="card-media"><img src="assets/brigadeiros.webp" alt="Caixa de brigadeiros gourmet de vários sabores" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/brig-box.webp" alt="Caixa de brigadeiros gourmet" loading="lazy"></div>
           <div class="card-body">
             <h3>Brigadeiros gourmet</h3>
-            <p>Kinder Bueno, Ferrero, Lotus, Ninho, Prestígio, Oreo e muito mais.</p>
-            <span class="card-price">+15 sabores</span>
+            <p>Kinder Bueno, Ferrero, Ninho, Prestígio, Oreo, Napolitano e mais.</p>
+            <span class="card-price">+12 sabores</span>
           </div>
         </article>
-
         <article class="card reveal">
-          <div class="card-media"><img src="assets/bolos.jpg" alt="Bolo temático de chocolate decorado com laço" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/kitkat.webp" alt="Cheesecake e sobremesas com Kit Kat" loading="lazy"></div>
           <div class="card-body">
-            <h3>Bolos temáticos</h3>
-            <p>Aniversários e celebrações. Coração recheado e bolos à sua medida.</p>
+            <h3>Cheesecakes &amp; doces</h3>
+            <p>Cremosos e irresistíveis, com aquele toque especial da casa.</p>
+            <span class="card-price menta">favoritos da casa</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-media"><img src="assets/salgados.webp" alt="Salgadinhos variados para festa" loading="lazy"></div>
+          <div class="card-body">
+            <h3>Salgados para festa</h3>
+            <p>Coxinha, rissóis, bolinhas de queijo, pastéis, enroladinhos e mais.</p>
             <span class="card-price">por encomenda</span>
           </div>
         </article>
-
         <article class="card reveal">
-          <div class="card-media"><img src="assets/cheesecake.jpg" alt="Cheesecake e brownie com morango" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/morango.webp" alt="Morango do amor" loading="lazy"></div>
           <div class="card-body">
-            <h3>Cheesecakes &amp; brownies</h3>
-            <p>Cremosos, equilibrados e irresistíveis. Vários sabores da estação.</p>
-            <span class="card-price">favoritos da casa</span>
-          </div>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-media"><img src="assets/box.webp" alt="Box de presente com doces variados da Sal Doce" loading="lazy" /></div>
-          <div class="card-body">
-            <h3>Boxes &amp; presentes</h3>
-            <p>Caixas temáticas para oferecer em qualquer ocasião especial.</p>
-            <span class="card-price">para presentear</span>
+            <h3>Morango do amor</h3>
+            <p>Casquinha crocante, morango fresquinho e brigadeiro branco. 🍓</p>
+            <span class="card-price menta">novidade</span>
           </div>
         </article>
       </div>
 
-      <p class="section-note reveal">
-        Cada encomenda é orçamentada de acordo com sabores, tamanho e decoração. Fale connosco para o menu completo.
-      </p>
+      <div class="center reveal" style="margin-top:34px">
+        <a href="encomenda.html" class="btn btn-menta btn-lg"><span aria-hidden="true">🧾</span> Montar encomenda completa</a>
+      </div>
+    </div>
+  </section>
 
-      <div class="center reveal">
-        <a href="#" class="btn btn-primary btn-lg js-whatsapp" data-msg="Olá Sal Doce! Gostava de ver o menu completo e preços. 🍰">
-          <span class="wa-icon" aria-hidden="true">💬</span> Pedir menu &amp; preços
-        </a>
+  <!-- ============ CARDÁPIO ============ -->
+  <section class="section" id="cardapio">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow menta">🎂 Cardápio de bolos</span>
+        <h2>Monte o bolo à sua medida</h2>
+        <p class="section-sub">Escolha a massa e o recheio. Os adicionais e a decoração são combinados consigo.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <h3>Recheios</h3>
+          <p class="menu-sub">Escolha o(s) seu(s) favorito(s)</p>
+          <ul class="menu-list">
+            <li>Brigadeiro tradicional</li>
+            <li>Brigadeiro de ninho</li>
+            <li>Brigadeiro branco</li>
+            <li>Beijinho</li>
+            <li>Doce de leite</li>
+            <li>Doce de morango</li>
+            <li>Doce de maracujá</li>
+            <li>Praline de chocolate</li>
+            <li>Nutella</li>
+            <li>Chantilly</li>
+            <li>Ferrero</li>
+            <li>Oreo</li>
+            <li>Kinder Bueno</li>
+            <li>Kit Kat crocante</li>
+          </ul>
+        </div>
+
+        <div class="menu-card massas reveal">
+          <h3>Massas</h3>
+          <p class="menu-sub">A base do seu bolo</p>
+          <ul class="menu-list">
+            <li>Pão de ló</li>
+            <li>Massa de chocolate</li>
+            <li>Massa red velvet</li>
+          </ul>
+          <p class="menu-sub" style="margin-top:22px">Adicionais</p>
+          <ul class="menu-list">
+            <li>Fruta</li>
+            <li>Frutos secos</li>
+          </ul>
+          <p class="menu-note" style="margin-top:18px; text-align:left">✨ Outros sabores à escolha — é só perguntar!</p>
+        </div>
+      </div>
+
+      <div class="center reveal" style="margin-top:34px">
+        <a href="encomenda.html" class="btn btn-primary btn-lg"><span aria-hidden="true">🎂</span> Escolher o meu bolo</a>
       </div>
     </div>
   </section>
 
   <!-- ============ VANTAGENS ============ -->
-  <section class="section section-alt" id="vantagens">
+  <section class="section section-menta" id="vantagens">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Porquê a Sal Doce</span>
+        <span class="eyebrow menta">Porquê a Sal Doce</span>
         <h2>Doçaria com o cuidado que merece</h2>
       </div>
-
       <div class="features">
-        <div class="feature reveal">
-          <div class="feature-ico">🌱</div>
-          <h3>Ingredientes selecionados</h3>
-          <p>Só usamos produtos de qualidade, sem atalhos. Sabe-se a diferença.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-ico">👐</div>
-          <h3>100% artesanal</h3>
-          <p>Cada doce é preparado à mão, no dia, para chegar sempre fresco.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-ico">🎨</div>
-          <h3>Personalização total</h3>
-          <p>Sabores, cores e temas à sua medida. A sua ideia, o nosso doce.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-ico">💬</div>
-          <h3>Atendimento próximo</h3>
-          <p>Falamos consigo passo a passo até a encomenda ficar perfeita.</p>
-        </div>
+        <div class="feature reveal"><div class="feature-ico">🌱</div><h3>Ingredientes selecionados</h3><p>Só usamos produtos de qualidade, sem atalhos. Sabe-se a diferença.</p></div>
+        <div class="feature reveal"><div class="feature-ico">👐</div><h3>100% artesanal</h3><p>Cada doce é preparado à mão, no dia, para chegar sempre fresco.</p></div>
+        <div class="feature reveal"><div class="feature-ico">🎨</div><h3>Personalização total</h3><p>Massa, recheio, cores e tema à sua medida. A sua ideia, o nosso doce.</p></div>
+        <div class="feature reveal"><div class="feature-ico">💬</div><h3>Atendimento próximo</h3><p>Falamos consigo passo a passo até a encomenda ficar perfeita.</p></div>
       </div>
     </div>
   </section>
@@ -205,29 +256,13 @@
         <span class="eyebrow">Simples e rápido</span>
         <h2>Como encomendar em 3 passos</h2>
       </div>
-
       <div class="steps">
-        <div class="step reveal">
-          <span class="step-num">1</span>
-          <h3>Fale connosco</h3>
-          <p>Envie mensagem no WhatsApp com o que procura e a data pretendida.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">2</span>
-          <h3>Personalizamos</h3>
-          <p>Ajustamos sabores, tamanho e decoração e confirmamos o orçamento.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">3</span>
-          <h3>Receba &amp; delicie-se</h3>
-          <p>Combinamos a entrega ou levantamento. É só aproveitar cada dentada.</p>
-        </div>
+        <div class="step reveal"><span class="step-num">1</span><h3>Monte o pedido</h3><p>Escolha bolo, brigadeiros e salgados na página de encomenda.</p></div>
+        <div class="step reveal"><span class="step-num">2</span><h3>Envie no WhatsApp</h3><p>Com um clique, o resumo do pedido segue direto para nós.</p></div>
+        <div class="step reveal"><span class="step-num">3</span><h3>Receba &amp; delicie-se</h3><p>Confirmamos orçamento e data. É só aproveitar cada dentada.</p></div>
       </div>
-
-      <div class="center reveal">
-        <a href="#" class="btn btn-primary btn-lg js-whatsapp" data-msg="Olá Sal Doce! Quero começar uma encomenda. 🧁">
-          <span class="wa-icon" aria-hidden="true">💬</span> Começar encomenda
-        </a>
+      <div class="center reveal" style="margin-top:38px">
+        <a href="encomenda.html" class="btn btn-primary btn-lg"><span aria-hidden="true">🧾</span> Começar encomenda</a>
         <p class="micro">💡 Dica: encomende com 48h de antecedência para garantir a sua data.</p>
       </div>
     </div>
@@ -241,16 +276,14 @@
         <h2>Um docinho para os olhos</h2>
         <p class="section-sub">Uma amostra das nossas criações. Ainda mais no @saldoce.pt.</p>
       </div>
-
       <div class="gallery">
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g1-brigadeiros.webp" alt="Tabuleiro de brigadeiros variados" loading="lazy" /></a>
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g4-morango.jpg" alt="Bolo de morango em camadas" loading="lazy" /></a>
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g6-box-laco.webp" alt="Box de doces com laço vermelho" loading="lazy" /></a>
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g3-taca.jpg" alt="Doce em taça com brigadeiro" loading="lazy" /></a>
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g5-boxes.jpg" alt="Várias boxes de doces sortidos" loading="lazy" /></a>
-        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g2-pascoa.jpg" alt="Ovo de Páscoa recheado da Sal Doce" loading="lazy" /></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g1-brigadeiros.webp" alt="Tabuleiro de brigadeiros" loading="lazy"></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/cake-berry.webp" alt="Bolo com frutos vermelhos" loading="lazy"></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g6-box-laco.webp" alt="Box de doces com laço" loading="lazy"></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/cake-butterfly.webp" alt="Bolo temático borboletas" loading="lazy"></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/morango-tray.webp" alt="Morangos do amor" loading="lazy"></a>
+        <a class="g-item reveal" href="INSTAGRAM_URL" target="_blank" rel="noopener"><img src="assets/g2-pascoa.jpg" alt="Ovo de Páscoa recheado" loading="lazy"></a>
       </div>
-
       <div class="center reveal">
         <a href="INSTAGRAM_URL" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Ver mais no Instagram →</a>
       </div>
@@ -258,29 +291,16 @@
   </section>
 
   <!-- ============ TESTEMUNHOS ============ -->
-  <section class="section" id="testemunhos">
+  <section class="section">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Quem prova, recomenda</span>
         <h2>O que dizem os nossos clientes</h2>
       </div>
-
       <div class="reviews">
-        <figure class="review reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>Simplesmente divinal! O bolo de aniversário foi o centro da festa. Toda a gente pediu o contacto.</blockquote>
-          <figcaption>— Ana M.</figcaption>
-        </figure>
-        <figure class="review reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>Os brigadeiros são de outro mundo. Encomendei uma box para oferecer e foi um sucesso total.</blockquote>
-          <figcaption>— Ricardo P.</figcaption>
-        </figure>
-        <figure class="review reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>Atendimento super atencioso e o cheesecake é o melhor que já provei. Já sou cliente fiel!</blockquote>
-          <figcaption>— Sofia L.</figcaption>
-        </figure>
+        <figure class="review reveal"><div class="stars">★★★★★</div><blockquote>Simplesmente divinal! O bolo de aniversário foi o centro da festa. Toda a gente pediu o contacto.</blockquote><figcaption>— Ana M.</figcaption></figure>
+        <figure class="review reveal"><div class="stars">★★★★★</div><blockquote>Os brigadeiros são de outro mundo. Encomendei uma box para oferecer e foi um sucesso total.</blockquote><figcaption>— Ricardo P.</figcaption></figure>
+        <figure class="review reveal"><div class="stars">★★★★★</div><blockquote>Atendimento super atencioso e os salgados desapareceram em minutos. Já sou cliente fiel!</blockquote><figcaption>— Sofia L.</figcaption></figure>
       </div>
     </div>
   </section>
@@ -289,10 +309,11 @@
   <section class="cta-final">
     <div class="container cta-inner reveal">
       <h2>Pronto para adoçar o seu dia?</h2>
-      <p>Faça já a sua encomenda. Respondemos rapidinho no WhatsApp. 🎀</p>
-      <a href="#" class="btn btn-white btn-lg js-whatsapp" data-msg="Olá Sal Doce! Quero fazer uma encomenda. 🧁">
-        <span class="wa-icon" aria-hidden="true">💬</span> Encomendar agora
-      </a>
+      <p>Monte o seu pedido em segundos. Respondemos rapidinho no WhatsApp. 🎀</p>
+      <div class="cta-btns">
+        <a href="encomenda.html" class="btn btn-white btn-lg"><span aria-hidden="true">🧾</span> Fazer encomenda</a>
+        <a href="#" class="btn btn-white btn-lg js-whatsapp" data-msg="Olá Sal Doce! Tenho uma dúvida. 🧁"><span class="wa-icon" aria-hidden="true">💬</span> Tirar uma dúvida</a>
+      </div>
       <a href="INSTAGRAM_URL" class="cta-ig" target="_blank" rel="noopener">Ou siga-nos no Instagram @saldoce.pt →</a>
     </div>
   </section>
@@ -304,24 +325,11 @@
         <span class="eyebrow">Dúvidas frequentes</span>
         <h2>Perguntas &amp; respostas</h2>
       </div>
-
       <div class="faq">
-        <details class="reveal">
-          <summary>Com quanta antecedência devo encomendar?</summary>
-          <p>Recomendamos pelo menos 48h. Para bolos elaborados ou datas concorridas, quanto mais cedo melhor.</p>
-        </details>
-        <details class="reveal">
-          <summary>Fazem entregas?</summary>
-          <p>Sim, combinamos entrega ou levantamento consigo no momento da encomenda. Fale connosco para saber a disponibilidade na sua zona.</p>
-        </details>
-        <details class="reveal">
-          <summary>Quais são os sabores de brigadeiro?</summary>
-          <p>Temos mais de 15 sabores — Kinder Bueno, Ferrero Rocher, Biscoff/Lotus, Ninho, Prestígio, Oreo, Sensação, Beijinho e mais. Peça o menu completo no WhatsApp.</p>
-        </details>
-        <details class="reveal">
-          <summary>Como funciona o pagamento?</summary>
-          <p>Após confirmarmos o orçamento no WhatsApp, combinamos a forma de pagamento mais conveniente para si.</p>
-        </details>
+        <details class="reveal"><summary>Com quanta antecedência devo encomendar?</summary><p>Recomendamos pelo menos 48h. Para bolos elaborados ou datas concorridas, quanto mais cedo melhor.</p></details>
+        <details class="reveal"><summary>Como escolho a decoração do bolo?</summary><p>Na página de encomenda descreve a ideia (tema, cores, texto) e, ao enviar o pedido no WhatsApp, pode anexar uma foto de referência.</p></details>
+        <details class="reveal"><summary>Fazem entregas?</summary><p>Sim, combinamos entrega ou levantamento consigo no momento da encomenda. Fale connosco para saber a disponibilidade na sua zona.</p></details>
+        <details class="reveal"><summary>Quais são os sabores de brigadeiro?</summary><p>Tradicional, Beijinho, Morango, Ninho, Churros, Sensação, Sedução, Casadinho, Prestígio, Oreo, Napolitano e Café.</p></details>
       </div>
     </div>
   </section>
@@ -330,21 +338,16 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <a href="#top" class="brand">
-          <span class="brand-mark">🧁</span>
-          <span class="brand-name">Sal Doce</span>
-        </a>
-        <p class="footer-tag">Doçaria artesanal feita com amor. 🎀</p>
+        <a href="#top" class="brand"><img src="assets/logo.png" alt="Sal Doce" class="brand-logo" /></a>
+        <p class="footer-tag">Doçaria artesanal feita com amor. Bolos, brigadeiros e salgados. 🎀</p>
       </div>
-
       <div class="footer-col">
         <h4>Navegação</h4>
+        <a href="#bolos">Bolos</a>
         <a href="#produtos">Produtos</a>
-        <a href="#como">Como encomendar</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#faq">FAQ</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="encomenda.html">Fazer encomenda</a>
       </div>
-
       <div class="footer-col">
         <h4>Fale connosco</h4>
         <a href="#" class="js-whatsapp" data-msg="Olá Sal Doce! 🧁">WhatsApp</a>
@@ -357,11 +360,9 @@
     </div>
   </footer>
 
-  <!-- ============ FLOATING WHATSAPP ============ -->
-  <a href="#" class="wa-float js-whatsapp" data-msg="Olá Sal Doce! Gostava de fazer uma encomenda. 🧁" aria-label="Falar no WhatsApp">
-    <span aria-hidden="true">💬</span>
-  </a>
+  <a href="#" class="wa-float js-whatsapp" data-msg="Olá Sal Doce! Gostava de fazer uma encomenda. 🧁" aria-label="Falar no WhatsApp"><span aria-hidden="true">💬</span></a>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
