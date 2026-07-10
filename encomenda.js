@@ -77,6 +77,7 @@
     });
 
     o.contacto.nome = val("nome").trim();
+    o.contacto.telefone = val("telefone").trim();
     o.contacto.entrega = val("entrega");
     o.contacto.obs = val("obs").trim();
     return o;
@@ -180,17 +181,91 @@
     return L.join("\n");
   }
 
+  /* ---- Mapeamento para a base de dados da app (Supabase) ---- */
+  var BRIG_KEY = { "Tradicional": "tradicional", "Beijinho": "beijinho", "Morango": "morango", "Ninho": "ninho", "Churros": "churros", "Sensação": "sensacao", "Sedução": "seducao", "Casadinho": "casadinho", "Prestígio": "prestigio", "Oreo": "oreo", "Napolitano": "napolitano", "Café": "cafe" };
+  var SALG_KEY = { "Coxinha": "coxinha", "Rissol de carne": "rissoisCarne", "Rissol misto": "rissoisMistos", "Bolinha de queijo": "bolinhasQueijo", "Pastel de frango": "pastelFrango", "Pastel de carne": "pastelCarne", "Pastel de pizza (misto)": "pastelPizza", "Enroladinho de salsicha": "enroladinho", "Pastel de bacalhau": "pastelBacalhau" };
+
+  function parseWeight(t) { if (!t) return 0; var m = String(t).replace(",", ".").match(/[\d.]+/); return m ? parseFloat(m[0]) : 0; }
+  function genId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16); });
+  }
+  function buildRow(o) {
+    var brig = {}, salg = {};
+    o.brigadeiros.forEach(function (i) { var k = BRIG_KEY[i.name]; if (k) brig[k] = i.qty; });
+    o.salgados.forEach(function (i) { var k = SALG_KEY[i.name]; if (k) salg[k] = i.qty; });
+    var otype = o.bolo.tem ? "bolo" : (o.brigadeiros.length ? "brigadeiros" : (o.salgados.length ? "salgados" : "bolo"));
+    var notes = [];
+    if (o.bolo.adicionais.length) notes.push("Adicionais: " + o.bolo.adicionais.join(", "));
+    if (o.bolo.decoracao) notes.push("Decoração: " + o.bolo.decoracao);
+    if (o.contacto.entrega) notes.push(o.contacto.entrega);
+    if (o.contacto.obs) notes.push("Obs: " + o.contacto.obs);
+    notes.push("(via Site)");
+    var now = new Date().toISOString();
+    return {
+      id: genId(),
+      client_name: o.contacto.nome || "Cliente (site)",
+      client_phone: o.contacto.telefone || null,
+      delivery_date: o.bolo.data,
+      order_type: otype,
+      cake_type: o.bolo.massa || "",
+      filling: o.bolo.recheios.join(", "),
+      weight_kg: parseWeight(o.bolo.tamanho),
+      topper: null, hostia: null, especial: null,
+      salgados: salg, brigadeiros: brig,
+      price: 0, photo_uri: null,
+      source_channel: (CFG.supabase && CFG.supabase.sourceChannel) || "Site",
+      delivery_time: null,
+      notes: notes.join(" | "),
+      status: "pending",
+      created_at: now, updated_at: now
+    };
+  }
+  function sendToSupabase(row) {
+    var s = CFG.supabase;
+    if (!s || !s.enabled) return Promise.resolve({ skipped: true });
+    return fetch(s.url + "/rest/v1/" + (s.table || "orders"), {
+      method: "POST",
+      headers: { "apikey": s.anonKey, "Authorization": "Bearer " + s.anonKey, "Content-Type": "application/json", "Prefer": "return=minimal" },
+      body: JSON.stringify(row)
+    }).then(function (r) {
+      if (!r.ok) return r.text().then(function (t) { throw new Error("HTTP " + r.status + " " + t); });
+      return { ok: true };
+    });
+  }
+  function setHint(t, ok) { var h = document.getElementById("sendHint"); if (h) { h.textContent = t; h.style.color = ok ? "var(--menta-forte)" : "var(--rosa-forte)"; } }
+
   /* ---- Enviar ---- */
-  document.getElementById("sendBtn").addEventListener("click", function (e) {
+  var sendBtn = document.getElementById("sendBtn");
+  var sending = false;
+  sendBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    if (sending) return;
     var o = collect();
     if (isEmpty(o)) { alert("Escolha pelo menos um item (bolo, brigadeiros ou salgados) antes de enviar. 🧁"); return; }
-    if (!o.contacto.nome) {
-      var ok = confirm("Ainda não indicou o seu nome. Quer enviar mesmo assim?");
-      if (!ok) { var n = document.getElementById("nome"); n.focus(); n.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
-    }
-    var url = "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(buildMessage(o));
-    window.open(url, "_blank", "noopener");
+    if (!o.contacto.nome) { var n = document.getElementById("nome"); n.focus(); n.scrollIntoView({ behavior: "smooth", block: "center" }); alert("Indique o seu nome para enviarmos a encomenda. 🙂"); return; }
+    var supaOn = !!(CFG.supabase && CFG.supabase.enabled);
+    if (supaOn && !o.bolo.data) { var d = document.getElementById("data"); d.focus(); d.scrollIntoView({ behavior: "smooth", block: "center" }); alert("Escolha a data pretendida para registarmos a encomenda. 📅"); return; }
+
+    var waUrl = "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(buildMessage(o));
+    var alsoWA = !supaOn || (CFG.supabase.alsoWhatsApp !== false);
+    var waWin = alsoWA ? window.open("", "_blank") : null; // abre já (gesto do utilizador)
+
+    var orig = sendBtn.innerHTML;
+    sending = true; sendBtn.style.opacity = ".7"; sendBtn.style.pointerEvents = "none";
+    sendBtn.innerHTML = '<span class="wa-icon" aria-hidden="true">⏳</span> A enviar…';
+
+    var task = supaOn ? sendToSupabase(buildRow(o)) : Promise.resolve({ skipped: true });
+    task.then(function () {
+      setHint(supaOn ? "✅ Encomenda registada! A abrir o WhatsApp para confirmar…" : "A abrir o WhatsApp…", true);
+      if (waWin) waWin.location = waUrl; else if (alsoWA) window.location.href = waUrl;
+    }).catch(function (err) {
+      console.error("Supabase:", err);
+      setHint("⚠️ Registo automático falhou — seguimos pelo WhatsApp.", false);
+      if (waWin) waWin.location = waUrl; else window.location.href = waUrl;
+    }).then(function () {
+      sending = false; sendBtn.style.opacity = "1"; sendBtn.style.pointerEvents = "auto"; sendBtn.innerHTML = orig;
+    });
   });
 
   /* ---- Menu mobile ---- */

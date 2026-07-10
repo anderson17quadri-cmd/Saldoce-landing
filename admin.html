@@ -25,6 +25,12 @@
     .pick.sel { border-color: var(--rosa-forte); }
     .pick .tick { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: var(--rosa-forte); color: #fff; display: none; align-items: center; justify-content: center; font-size: 1rem; box-shadow: var(--sombra-sm); }
     .pick.sel .tick { display: flex; }
+    .upload-box { margin-top: 24px; text-align: center; background: var(--rosa-veu); border: 2px dashed var(--rosa-claro); border-radius: 18px; padding: 22px; }
+    .upload-box .up-title { font-weight: 500; margin-bottom: 4px; }
+    .upload-box .up-sub { font-size: .84rem; color: var(--plum-suave); margin-bottom: 14px; }
+    .up-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .up-preview { margin-top: 16px; }
+    .up-preview img { width: 150px; aspect-ratio: 4/5; object-fit: cover; border-radius: 14px; border: 3px solid var(--rosa-forte); box-shadow: var(--sombra-sm); }
     .admin-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin-top: 30px; }
     .snippet { margin-top: 26px; background: #2b1a22; color: #ffd9e6; border-radius: 14px; padding: 16px 18px; font-family: ui-monospace, monospace; font-size: .86rem; overflow-x: auto; }
     .note { background: var(--menta-suave); border-radius: 14px; padding: 16px 18px; margin-top: 22px; font-size: .9rem; color: var(--plum); }
@@ -40,6 +46,17 @@
     </div>
 
     <div class="pick-grid" id="grid"></div>
+
+    <div class="upload-box">
+      <div class="up-title">📷 Ou use uma foto do seu telemóvel</div>
+      <div class="up-sub">Escolha uma foto da galeria — fica logo como capa neste dispositivo.</div>
+      <div class="up-actions">
+        <label class="btn btn-menta" for="fileInput">📷 Escolher foto</label>
+        <input type="file" id="fileInput" accept="image/*" hidden />
+        <button class="btn btn-ghost" id="dlBtn" hidden>⬇️ Guardar foto para o site</button>
+      </div>
+      <div class="up-preview" id="upPreview"></div>
+    </div>
 
     <div class="admin-bar">
       <button class="btn btn-ghost" id="resetBtn">↺ Repor predefinição</button>

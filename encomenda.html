@@ -158,9 +158,15 @@
             <div class="ob-tog" aria-hidden="true">+</div>
           </header>
           <div class="order-body"><div class="order-inner">
-            <div class="field">
-              <label class="flabel" for="nome">Nome</label>
-              <input type="text" id="nome" class="input" placeholder="O seu nome" autocomplete="name">
+            <div class="row2">
+              <div class="field">
+                <label class="flabel" for="nome">Nome</label>
+                <input type="text" id="nome" class="input" placeholder="O seu nome" autocomplete="name">
+              </div>
+              <div class="field">
+                <label class="flabel" for="telefone">Telefone <span class="opt">(WhatsApp)</span></label>
+                <input type="tel" id="telefone" class="input" placeholder="912 345 678" autocomplete="tel" inputmode="tel">
+              </div>
             </div>
             <div class="field">
               <label class="flabel" for="entrega">Entrega ou levantamento?</label>
@@ -187,9 +193,9 @@
           <p class="sum-empty">Ainda não escolheu nada. Comece pelo bolo, brigadeiros ou salgados. 🧁</p>
         </div>
         <a href="#" class="btn btn-primary btn-block js-send" id="sendBtn" aria-disabled="true">
-          <span class="wa-icon" aria-hidden="true">💬</span> Enviar pedido no WhatsApp
+          <span class="wa-icon" aria-hidden="true">🧾</span> Enviar encomenda
         </a>
-        <p class="micro">Abre o WhatsApp com o resumo já escrito.</p>
+        <p class="micro" id="sendHint">A encomenda é registada e abre o WhatsApp para confirmar.</p>
       </aside>
 
     </div>

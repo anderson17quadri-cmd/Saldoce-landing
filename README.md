@@ -33,9 +33,24 @@ assets/         → logótipo e fotografias dos produtos
 ## 🎂 Painel privado da capa (`admin.html`)
 
 Abra **`/admin.html`** (página não listada no site) para escolher a fotografia
-de capa (hero). A escolha fica guardada **nesse dispositivo** para pré-visualizar.
-Para a tornar oficial para todos os visitantes, edite a linha `heroImage` em
-`config.js` (o painel mostra a linha exata a copiar).
+de capa (hero) — de entre as fotos existentes **ou uma foto do seu telemóvel**.
+A escolha fica guardada **nesse dispositivo** para pré-visualizar. Para a tornar
+oficial para todos os visitantes, edite a linha `heroImage` em `config.js`
+(o painel mostra a linha exata a copiar). Para fotos do telemóvel, use o botão
+"Guardar foto para o site", coloque o ficheiro em `assets/` e aponte `heroImage`.
+
+## 🧾 Encomendas → app Sal Doce Premium (Supabase)
+
+As encomendas feitas em `encomenda.html` são **registadas diretamente na base
+de dados (Supabase) da app Sal Doce Premium** (tabela `orders`, com
+`source_channel: "Site"`) e, em paralelo, abrem o WhatsApp para confirmação e
+envio da foto de decoração. A configuração está em `config.js` → `supabase`.
+
+> ⚠️ **Segurança:** a `anonKey` fica visível no site (é assim que funcionam as
+> chaves públicas do Supabase). Como as políticas (RLS) atuais permitem leitura/
+> remoção à role `anon`, recomenda-se reforçar as políticas para permitir apenas
+> **inserção** anónima (INSERT) e restringir SELECT/UPDATE/DELETE a utilizadores
+> autenticados. Posso ajudar a configurar isto.
 
 ## ⚙️ Personalizar (importante)
 
