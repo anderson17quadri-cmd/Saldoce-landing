@@ -43,8 +43,8 @@
       body: JSON.stringify({ prefix: "", limit: 1000, sortBy: { column: "name", order: "desc" } })
     }).then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
       var cfgs = (list || []).map(function (o) { return o.name; })
-        .filter(function (n) { return n.indexOf("site-config-") === 0 && /\.json$/.test(n); });
-      cfgs.sort();
+        .filter(function (n) { return /^site-config-\d+\.json$/.test(n); });
+      cfgs.sort(function (a, b) { return (parseInt(a.replace(/\D/g, ""), 10) || 0) - (parseInt(b.replace(/\D/g, ""), 10) || 0); });
       var name = cfgs.length ? cfgs[cfgs.length - 1] : (_s.configFile || "site-config.json");
       return fetch(_base + "/public/" + _bucket + "/" + name + "?t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.ok ? r.json() : null; });

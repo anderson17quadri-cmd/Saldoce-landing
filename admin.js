@@ -34,8 +34,8 @@
   }
   function latestConfigName(list) {
     var cfgs = (list || []).map(function (o) { return o.name; })
-      .filter(function (n) { return n.indexOf("site-config-") === 0 && /\.json$/.test(n); });
-    cfgs.sort();
+      .filter(function (n) { return /^site-config-\d+\.json$/.test(n); });
+    cfgs.sort(function (a, b) { return (parseInt(a.replace(/\D/g, ""), 10) || 0) - (parseInt(b.replace(/\D/g, ""), 10) || 0); });
     return cfgs.length ? cfgs[cfgs.length - 1] : CFGFILE;
   }
   function loadRemoteConfig() {
