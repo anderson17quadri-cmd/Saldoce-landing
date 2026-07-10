@@ -10,17 +10,25 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Sal Doce — Doçaria Artesanal" />
   <meta property="og:description" content="Bolos personalizados, brigadeiros gourmet e salgados por encomenda. Monte o seu pedido e envie pelo WhatsApp." />
-  <meta property="og:image" content="assets/cake-hero.webp" />
+  <meta property="og:image" content="assets/cake-hero.jpg" />
   <meta property="og:locale" content="pt_PT" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="assets/logo.png" />
 </head>
 <body>
+
+  <!-- ============ ABERTURA MÁGICA ============ -->
+  <div class="intro" data-intro aria-hidden="true">
+    <div class="intro-inner">
+      <img src="assets/logo.png" alt="Sal Doce" class="intro-logo" />
+      <span class="intro-line"></span>
+    </div>
+  </div>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
@@ -49,45 +57,58 @@
   </header>
 
   <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
-    <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+  <section class="hero" id="hero">
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="sparkles" data-sparkles aria-hidden="true"></div>
+    <div class="floaties" aria-hidden="true">
+      <span class="fl fl-1">🍓</span>
+      <span class="fl fl-2">🍫</span>
+      <span class="fl fl-3">🧁</span>
+      <span class="fl fl-4">✨</span>
+      <span class="fl fl-5">🎀</span>
+      <span class="fl fl-6">🍰</span>
+    </div>
 
     <div class="container hero-grid">
-      <div class="hero-copy reveal">
-        <span class="eyebrow">🎀 Doçaria artesanal • feito à mão</span>
-        <h1>Bolos que são o <span class="hl">coração</span> da sua festa.</h1>
-        <p class="lead">
+      <div class="hero-copy">
+        <span class="eyebrow up" style="--d:.15s">🎀 Doçaria artesanal • feito à mão</span>
+        <h1 class="hero-title">
+          <span class="line"><span class="w" style="--d:.30s">Bolos</span> <span class="w" style="--d:.38s">que</span> <span class="w" style="--d:.46s">são</span> <span class="w" style="--d:.54s">o</span></span>
+          <span class="line"><span class="w script hl" style="--d:.66s">coração</span></span>
+          <span class="line"><span class="w" style="--d:.80s">da</span> <span class="w" style="--d:.88s">sua</span> <span class="w" style="--d:.96s">festa.</span></span>
+        </h1>
+        <p class="lead up" style="--d:1.05s">
           Bolos personalizados, brigadeiros gourmet, cheesecakes e salgados —
           feitos com ingredientes de qualidade e muito carinho. Escolha massa,
           recheio e decoração à sua medida.
         </p>
 
-        <div class="hero-cta">
-          <a href="encomenda.html" class="btn btn-primary btn-lg">
+        <div class="hero-cta up" style="--d:1.18s">
+          <a href="encomenda.html" class="btn btn-primary btn-lg btn-shine">
             <span aria-hidden="true">🧾</span> Montar a minha encomenda
           </a>
           <a href="#bolos" class="btn btn-ghost btn-lg">Ver bolos</a>
         </div>
 
-        <ul class="hero-trust">
+        <ul class="hero-trust up" style="--d:1.30s">
           <li><strong>+500</strong> encomendas felizes</li>
           <li><strong>3</strong> massas &amp; +14 recheios</li>
           <li><strong>⭐ 5,0</strong> nas avaliações</li>
         </ul>
       </div>
 
-      <div class="hero-visual reveal">
+      <div class="hero-visual up-scale" style="--d:.5s">
+        <div class="hero-halo" aria-hidden="true"></div>
         <div class="hero-photo">
-          <img src="assets/cake-hero.webp" alt="Bolo personalizado da Sal Doce, cor-de-rosa com detalhes dourados" loading="eager" width="640" height="800" />
+          <img src="assets/cake-hero.jpg" alt="Bolo personalizado da Sal Doce, cor-de-rosa com detalhes dourados" loading="eager" width="640" height="800" />
         </div>
-        <div class="hero-badge hero-badge-1">🍓 Ingredientes frescos</div>
-        <div class="hero-badge hero-badge-2 menta">🎂 Bolos à sua medida</div>
+        <div class="hero-badge glass hero-badge-1">🍓 Ingredientes frescos</div>
+        <div class="hero-badge glass hero-badge-2 menta">🎂 Bolos à sua medida</div>
       </div>
     </div>
 
     <!-- chocolate a escorrer -->
-    <div class="container"><div class="drip" data-drip aria-hidden="true"></div></div>
+    <div class="drip-wrap"><div class="drip" data-drip aria-hidden="true"></div></div>
   </section>
 
   <!-- ============ CARROSSEL AUTOMÁTICO ============ -->
