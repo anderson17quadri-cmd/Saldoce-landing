@@ -74,79 +74,72 @@
   /* 5) Partículas cintilantes no hero */
   var sp = document.querySelector("[data-sparkles]");
   if (sp && !reduce) {
-    var N = 22;
     var html = "";
-    for (var i = 0; i < N; i++) {
-      var x = Math.random() * 100, y = Math.random() * 100;
-      var s = 3 + Math.random() * 5;
-      var del = (Math.random() * 3).toFixed(2), dur = (2.4 + Math.random() * 2.4).toFixed(2);
-      html += '<i style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;width:' + s.toFixed(1) + 'px;height:' + s.toFixed(1) + 'px;animation-delay:' + del + 's;animation-duration:' + dur + 's"></i>';
+    for (var i = 0; i < 32; i++) {
+      var s = 4 + Math.random() * 7;
+      html += '<i style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 100).toFixed(1) +
+        '%;width:' + s.toFixed(1) + 'px;height:' + s.toFixed(1) + 'px;animation-delay:' + (Math.random() * 3).toFixed(2) +
+        's;animation-duration:' + (2.2 + Math.random() * 2.6).toFixed(2) + 's"></i>';
     }
     sp.innerHTML = html;
   }
 
-  /* 6) Chocolate a escorrer */
-  document.querySelectorAll("[data-drip]").forEach(function (el) { buildDrip(el); });
-
-  function buildDrip(el) {
-    var W = 1200, H = 96, base = 24;
-    // gerador pseudo-aleatório determinístico
-    var seed = 7;
-    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
-
-    // define os pingos ao longo da largura
-    var drips = [], x = 10;
-    while (x < W - 10) {
-      var neck = 8 + rnd() * 9;            // meia-largura do "pescoço"
-      var len = 20 + rnd() * 52;           // comprimento do pingo
-      var gap = 26 + rnd() * 46;           // espaço até ao próximo
-      drips.push({ cx: x + neck, neck: neck, len: len });
-      x += neck * 2 + gap;
-    }
-
-    // caminho do chocolate: topo sólido + base com pingos pendurados
-    var d = "M0,0 L0," + base + " ";
-    var highlights = "";
-    drips.forEach(function (dp) {
-      var sX = dp.cx - dp.neck, eX = dp.cx + dp.neck;
-      var tipY = base + dp.len, bulb = dp.neck * 1.45;
-      d += "L" + sX.toFixed(1) + "," + base + " ";
-      d += "C" + sX.toFixed(1) + "," + (base + dp.len * 0.5).toFixed(1) + " " + (dp.cx - bulb).toFixed(1) + "," + (tipY - bulb * 0.5).toFixed(1) + " " + dp.cx.toFixed(1) + "," + tipY.toFixed(1) + " ";
-      d += "C" + (dp.cx + bulb).toFixed(1) + "," + (tipY - bulb * 0.5).toFixed(1) + " " + eX.toFixed(1) + "," + (base + dp.len * 0.5).toFixed(1) + " " + eX.toFixed(1) + "," + base + " ";
-      // brilho especular no pingo (lado esquerdo)
-      var hx = dp.cx - dp.neck * 0.35;
-      highlights += '<path d="M' + hx.toFixed(1) + ',' + (base + 5).toFixed(1) +
-        ' C' + (hx - 1).toFixed(1) + ',' + (base + dp.len * 0.5).toFixed(1) + ' ' + (dp.cx - 1).toFixed(1) + ',' + (tipY - bulb).toFixed(1) + ' ' + (dp.cx - 1).toFixed(1) + ',' + (tipY - dp.neck * 0.8).toFixed(1) +
-        '" stroke="rgba(255,244,235,.28)" stroke-width="' + (dp.neck * 0.5).toFixed(1) + '" stroke-linecap="round" fill="none"/>';
+  /* 6) Ingredientes a flutuar (ambiente, atrás do texto) */
+  var flBox = document.querySelector("[data-floaties]");
+  if (flBox) {
+    var EMO = ["🍓", "🍫", "🧁", "✨", "🎀", "🍰", "🫐", "🍒", "⭐", "🍮", "🌸", "🍓"];
+    // [top%, left%] espalhados; ficam por trás do texto (z-index), logo nunca tapam a leitura
+    var SPOTS = [[7, 6], [10, 84], [24, 20], [22, 66], [40, 4], [44, 90], [58, 30], [62, 74], [78, 12], [80, 58], [88, 40], [90, 88]];
+    var frag = "";
+    SPOTS.forEach(function (pos, i) {
+      var size = (1.4 + Math.random() * 1.5).toFixed(2);
+      var dur = (7 + Math.random() * 6).toFixed(1);
+      var dl = (Math.random() * 3).toFixed(2);
+      var op = (0.5 + Math.random() * 0.4).toFixed(2);
+      frag += '<span class="fl" style="top:' + pos[0] + '%;left:' + pos[1] + '%;font-size:' + size + 'rem;opacity:' + op + ';--dur:' + dur + 's;--dl:' + dl + 's">' + EMO[i % EMO.length] + '</span>';
     });
-    d += "L" + W + "," + base + " L" + W + ",0 Z";
+    flBox.innerHTML = frag;
+  }
 
-    el.innerHTML =
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs>' +
-      '<linearGradient id="choco" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0" stop-color="#7A5333"/><stop offset="0.26" stop-color="#55311C"/>' +
-      '<stop offset="0.7" stop-color="#3A2011"/><stop offset="1" stop-color="#281506"/>' +
-      '</linearGradient>' +
-      '<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0" stop-color="rgba(255,240,225,.5)"/><stop offset="1" stop-color="rgba(255,240,225,0)"/>' +
-      '</linearGradient>' +
-      '</defs>' +
-      '<path d="' + d + '" fill="url(#choco)"/>' +
-      '<rect x="0" y="0" width="' + W + '" height="10" fill="url(#gloss)"/>' +
-      '<path d="M0,4.5 H' + W + '" stroke="rgba(255,246,238,.35)" stroke-width="2.5"/>' +
-      highlights +
-      '</svg>';
-
-    // gotas que se soltam e caem
-    if (reduce) return;
-    drips.filter(function (dp) { return dp.len > 40; }).slice(0, 6).forEach(function (dp, k) {
-      var b = document.createElement("span");
-      b.className = "bead";
-      b.style.left = (dp.cx / W * 100).toFixed(2) + "%";
-      b.style.top = (dp.len + base - 6) + "px";
-      b.style.animationDelay = (k * 0.5 + rnd()).toFixed(2) + "s";
-      el.appendChild(b);
+  /* 7) Reação ao toque — brilhos, ondas e ingredientes que reagem */
+  if (!reduce) {
+    var BURST = ["✨", "💕", "🍓", "🌸", "⭐", "🧁", "🎀"];
+    function sparkleBurst(x, y) {
+      for (var i = 0; i < 7; i++) {
+        var el = document.createElement("span");
+        el.className = "tap-burst";
+        el.textContent = BURST[(Math.random() * BURST.length) | 0];
+        el.style.left = x + "px"; el.style.top = y + "px";
+        var ang = Math.random() * Math.PI * 2, dist = 26 + Math.random() * 46;
+        el.style.setProperty("--bx", (Math.cos(ang) * dist).toFixed(0) + "px");
+        el.style.setProperty("--by", (Math.sin(ang) * dist - 22).toFixed(0) + "px");
+        el.style.setProperty("--br", ((Math.random() * 200 - 100) | 0) + "deg");
+        document.body.appendChild(el);
+        (function (n) { setTimeout(function () { n.remove(); }, 820); })(el);
+      }
+    }
+    function addRipple(x, y, el) {
+      var r = el.getBoundingClientRect();
+      var d = Math.max(r.width, r.height) * 1.25;
+      var s = document.createElement("span");
+      s.className = "ripple";
+      s.style.width = s.style.height = d + "px";
+      s.style.left = (x - r.left) + "px";
+      s.style.top = (y - r.top) + "px";
+      el.appendChild(s);
+      (function (n) { setTimeout(function () { n.remove(); }, 620); })(s);
+    }
+    // ondas imediatas ao pressionar elementos interativos
+    document.addEventListener("pointerdown", function (e) {
+      var el = e.target.closest(".btn, .card, .bolo, .g-item, .feature, .strip-item");
+      if (el) addRipple(e.clientX, e.clientY, el);
+      var f = e.target.closest(".fl");
+      if (f) { f.classList.remove("pop"); void f.offsetWidth; f.classList.add("pop"); sparkleBurst(e.clientX, e.clientY); }
+    }, { passive: true });
+    // brilhos ao clicar/tocar (sem spam durante o scroll)
+    document.addEventListener("click", function (e) {
+      if (e.target.closest("input, textarea, select")) return;
+      sparkleBurst(e.clientX, e.clientY);
     });
   }
 
