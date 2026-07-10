@@ -233,7 +233,17 @@
       return { ok: true };
     });
   }
-  function setHint(t, ok) { var h = document.getElementById("sendHint"); if (h) { h.textContent = t; h.style.color = ok ? "var(--menta-forte)" : "var(--rosa-forte)"; } }
+  function setHint(t, ok) {
+    var h = document.getElementById("sendHint");
+    if (!h) return;
+    h.textContent = t;
+    h.style.color = ok ? "#127a63" : "#b02a5b";
+    h.style.fontWeight = "600";
+    h.style.background = ok ? "var(--menta-suave)" : "var(--rosa-suave)";
+    h.style.padding = "10px 12px";
+    h.style.borderRadius = "12px";
+    h.style.marginTop = "10px";
+  }
 
   /* ---- Enviar ---- */
   var sendBtn = document.getElementById("sendBtn");
