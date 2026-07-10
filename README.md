@@ -32,12 +32,12 @@ assets/         → logótipo e fotografias dos produtos
 
 ## 🎂 Painel privado da capa (`admin.html`)
 
-Abra **`/admin.html`** (página não listada no site) para escolher a fotografia
-de capa (hero) — de entre as fotos existentes **ou uma foto do seu telemóvel**.
-A escolha fica guardada **nesse dispositivo** para pré-visualizar. Para a tornar
-oficial para todos os visitantes, edite a linha `heroImage` em `config.js`
-(o painel mostra a linha exata a copiar). Para fotos do telemóvel, use o botão
-"Guardar foto para o site", coloque o ficheiro em `assets/` e aponte `heroImage`.
+Abra **`/admin.html`** (página não listada no site) para editar a **foto de capa**
+e os **bolos em destaque** (nome + foto), usando fotos da biblioteca **ou do
+telemóvel**. Ao carregar em **"💾 Guardar tudo no site"**, as fotos e definições
+são gravadas no **Supabase** (bucket `Photos` + `site-config.json`) e passam a
+aparecer para **todos os visitantes** — não é preciso editar código. O site lê
+essas definições no arranque (com as predefinições de `config.js` como reserva).
 
 ## 🧾 Encomendas → app Sal Doce Premium (Supabase)
 

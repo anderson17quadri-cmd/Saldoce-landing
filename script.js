@@ -16,31 +16,32 @@
     el.setAttribute("href", CFG.instagram);
   });
 
-  /* 1b) Foto de capa (hero) — painel privado (localStorage) ou config */
+  /* 1b) Conteúdo editável (capa + bolos) — guardado no Supabase pelo painel */
   var heroImg = document.getElementById("heroImg");
-  if (heroImg) {
-    var chosen = null;
-    try { chosen = localStorage.getItem("saldoce_hero"); } catch (e) {}
-    var src = chosen || CFG.heroImage;
-    if (src) heroImg.src = src;
-  }
-
-  /* 1b2) Bolos em destaque — do painel (localStorage) ou config */
   var bolosBox = document.querySelector("[data-bolos]");
-  if (bolosBox) {
-    var bolos = null;
-    try { bolos = JSON.parse(localStorage.getItem("saldoce_bolos")); } catch (e) {}
-    if (!bolos || !bolos.length) bolos = CFG.bolos;
-    if (bolos && bolos.length) {
-      bolosBox.innerHTML = bolos.map(function (b, i) {
-        var mc = (i % 2 === 1) ? " menta" : "";
-        var nm = escapeHtml(b.name || "");
-        return '<figure class="bolo"><img src="' + b.img + '" alt="' + nm + '" loading="lazy">' +
-          '<figcaption class="bolo-tag' + mc + '">' + nm + '</figcaption></figure>';
-      }).join("");
-    }
-  }
   function escapeHtml(s) { return String(s).replace(/[&<>"]/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]; }); }
+  function applyHero(src) { if (heroImg && src) heroImg.src = src; }
+  function applyBolos(bolos) {
+    if (!bolosBox || !bolos || !bolos.length) return;
+    bolosBox.innerHTML = bolos.map(function (b, i) {
+      var mc = (i % 2 === 1) ? " menta" : "";
+      var nm = escapeHtml(b.name || "");
+      return '<figure class="bolo"><img src="' + b.img + '" alt="' + nm + '" loading="lazy">' +
+        '<figcaption class="bolo-tag' + mc + '">' + nm + '</figcaption></figure>';
+    }).join("");
+  }
+  // 1) valores predefinidos (config.js)
+  applyHero(CFG.heroImage);
+  applyBolos(CFG.bolos);
+  // 2) valores guardados no site (Supabase) — sobrepõem, para todos os visitantes
+  var _s = CFG.supabase;
+  if (_s && _s.url) {
+    var cfgUrl = _s.url + "/storage/v1/object/public/" + (_s.bucket || "Photos") + "/" + (_s.configFile || "site-config.json") + "?t=" + Date.now();
+    fetch(cfgUrl, { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (cfg) { if (cfg) { if (cfg.heroImage) applyHero(cfg.heroImage); if (cfg.bolos && cfg.bolos.length) applyBolos(cfg.bolos); } })
+      .catch(function () {});
+  }
 
   /* 1c) Reel — slideshow automático */
   var reel = document.querySelector("[data-reel]");

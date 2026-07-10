@@ -55,7 +55,7 @@
 
     <div class="upload-box">
       <div class="up-title">📷 Ou use uma foto do seu telemóvel</div>
-      <div class="up-sub">Escolha uma foto da galeria — fica logo como capa neste dispositivo.</div>
+      <div class="up-sub">Escolha uma foto da galeria — é enviada para o site.</div>
       <div class="up-actions">
         <label class="btn btn-menta" for="fileInput">📷 Escolher foto</label>
         <input type="file" id="fileInput" accept="image/*" hidden />
@@ -68,23 +68,23 @@
     <h2 class="block-title">Bolos em destaque 🎂</h2>
     <p class="block-sub">Altere o nome e a foto de cada bolo da secção "Bolos personalizados".</p>
     <div id="bolosEditor"></div>
-    <div class="up-actions" style="margin-top:16px">
-      <button class="btn btn-primary" id="bolosSave">💾 Guardar bolos</button>
-      <button class="btn btn-ghost" id="bolosReset">↺ Repor</button>
-    </div>
     <div class="snippet" id="bolosSnippet" style="display:none"></div>
 
-    <div class="admin-bar">
-      <button class="btn btn-ghost" id="resetBtn">↺ Repor capa</button>
-      <a class="btn btn-primary" href="index.html" target="_blank" rel="noopener">👁️ Ver o site</a>
+    <div class="note" style="text-align:center">
+      <b>Como funciona:</b> escolha a capa e edite os bolos (fotos da biblioteca ou do telemóvel).
+      Depois carregue em <b>💾 Guardar tudo no site</b> — as alterações ficam guardadas
+      e aparecem para <b>todos os visitantes</b>. (Atualize o site para confirmar.)
     </div>
 
-    <div class="note">
-      <b>Como funciona:</b> ao clicar numa foto, ela fica como capa <b>neste dispositivo</b> (ótimo para experimentar).
-      Para a deixar oficial <b>para todos os visitantes</b>, altere uma linha no ficheiro <code>config.js</code>
-      (ou envie-me a escolha e eu deixo permanente):
+    <div class="admin-bar">
+      <button class="btn btn-primary" id="bolosSave" style="min-width:220px">💾 Guardar tudo no site</button>
     </div>
-    <div class="snippet" id="snippet">heroImage: "assets/cake-berry.webp",</div>
+    <div class="admin-bar" style="margin-top:12px">
+      <button class="btn btn-ghost" id="resetBtn">↺ Repor capa</button>
+      <button class="btn btn-ghost" id="bolosReset">↺ Repor bolos</button>
+      <a class="btn btn-menta" href="index.html" target="_blank" rel="noopener">👁️ Ver o site</a>
+    </div>
+    <div class="snippet" id="snippet" style="display:none"></div>
   </div>
 
   <script src="config.js"></script>

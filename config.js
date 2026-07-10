@@ -29,5 +29,8 @@ window.SALDOCE = {
     sourceChannel: "Site",
     // Se true, também abre o WhatsApp com o resumo (para enviar a foto da decoração)
     alsoWhatsApp: true,
+    // Armazenamento das definições/fotos do site (painel admin)
+    bucket: "Photos",
+    configFile: "site-config.json",
   },
 };
