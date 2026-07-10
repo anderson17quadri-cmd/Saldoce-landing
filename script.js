@@ -16,6 +16,31 @@
     el.setAttribute("href", CFG.instagram);
   });
 
+  /* 1b) Foto de capa (hero) — painel privado (localStorage) ou config */
+  var heroImg = document.getElementById("heroImg");
+  if (heroImg) {
+    var chosen = null;
+    try { chosen = localStorage.getItem("saldoce_hero"); } catch (e) {}
+    var src = chosen || CFG.heroImage;
+    if (src) heroImg.src = src;
+  }
+
+  /* 1c) Reel — slideshow automático */
+  var reel = document.querySelector("[data-reel]");
+  if (reel) {
+    var slides = reel.querySelectorAll(".reel-slide");
+    if (slides.length) {
+      var ri = 0; slides[0].classList.add("active");
+      if (!reduce && slides.length > 1) {
+        setInterval(function () {
+          slides[ri].classList.remove("active");
+          ri = (ri + 1) % slides.length;
+          slides[ri].classList.add("active");
+        }, 2800);
+      }
+    }
+  }
+
   /* 2) Abertura mágica — remove o overlay após a animação */
   var intro = document.querySelector("[data-intro]");
   if (intro) {
@@ -64,48 +89,63 @@
   document.querySelectorAll("[data-drip]").forEach(function (el) { buildDrip(el); });
 
   function buildDrip(el) {
-    var W = 1200, T = 18;
-    // barra com base ondulada (chocolate derretido)
-    var d = "M0,0 H" + W + " V" + T + " ";
-    var x = 0, i = 0;
-    var depths = [14, 26, 10, 22, 18, 30, 12, 22, 16, 26, 12, 20];
-    var widths = [110, 90, 130, 100, 120, 95, 115, 105, 125, 92, 118, 100];
-    while (x < W) {
-      var w = widths[i % widths.length];
-      var dep = T + depths[i % depths.length];
-      d += "C" + (x + w * 0.15) + "," + T + " " + (x + w * 0.35) + "," + dep + " " + (x + w * 0.5) + "," + dep + " ";
-      d += "C" + (x + w * 0.65) + "," + dep + " " + (x + w * 0.85) + "," + T + " " + (x + w) + "," + T + " ";
-      x += w; i++;
-    }
-    d += "H0 Z";
+    var W = 1200, H = 96, base = 24;
+    // gerador pseudo-aleatório determinístico
+    var seed = 7;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
 
-    // estalactites (pingos suspensos que esticam)
-    var stalX = [150, 360, 600, 830, 1050];
-    var stals = stalX.map(function (cx, k) {
-      var top = T - 2, len = 18 + (k % 3) * 6, b = top + len;
-      var p = "M" + (cx - 7) + "," + top +
-        " C" + (cx - 7) + "," + (top + len * 0.6) + " " + (cx - 4) + "," + b + " " + cx + "," + b +
-        " C" + (cx + 4) + "," + b + " " + (cx + 7) + "," + (top + len * 0.6) + " " + (cx + 7) + "," + top + " Z";
-      return '<path class="stal d' + (k + 1) + '" d="' + p + '" fill="url(#choco)"/>';
-    }).join("");
+    // define os pingos ao longo da largura
+    var drips = [], x = 10;
+    while (x < W - 10) {
+      var neck = 8 + rnd() * 9;            // meia-largura do "pescoço"
+      var len = 20 + rnd() * 52;           // comprimento do pingo
+      var gap = 26 + rnd() * 46;           // espaço até ao próximo
+      drips.push({ cx: x + neck, neck: neck, len: len });
+      x += neck * 2 + gap;
+    }
+
+    // caminho do chocolate: topo sólido + base com pingos pendurados
+    var d = "M0,0 L0," + base + " ";
+    var highlights = "";
+    drips.forEach(function (dp) {
+      var sX = dp.cx - dp.neck, eX = dp.cx + dp.neck;
+      var tipY = base + dp.len, bulb = dp.neck * 1.45;
+      d += "L" + sX.toFixed(1) + "," + base + " ";
+      d += "C" + sX.toFixed(1) + "," + (base + dp.len * 0.5).toFixed(1) + " " + (dp.cx - bulb).toFixed(1) + "," + (tipY - bulb * 0.5).toFixed(1) + " " + dp.cx.toFixed(1) + "," + tipY.toFixed(1) + " ";
+      d += "C" + (dp.cx + bulb).toFixed(1) + "," + (tipY - bulb * 0.5).toFixed(1) + " " + eX.toFixed(1) + "," + (base + dp.len * 0.5).toFixed(1) + " " + eX.toFixed(1) + "," + base + " ";
+      // brilho especular no pingo (lado esquerdo)
+      var hx = dp.cx - dp.neck * 0.35;
+      highlights += '<path d="M' + hx.toFixed(1) + ',' + (base + 5).toFixed(1) +
+        ' C' + (hx - 1).toFixed(1) + ',' + (base + dp.len * 0.5).toFixed(1) + ' ' + (dp.cx - 1).toFixed(1) + ',' + (tipY - bulb).toFixed(1) + ' ' + (dp.cx - 1).toFixed(1) + ',' + (tipY - dp.neck * 0.8).toFixed(1) +
+        '" stroke="rgba(255,244,235,.28)" stroke-width="' + (dp.neck * 0.5).toFixed(1) + '" stroke-linecap="round" fill="none"/>';
+    });
+    d += "L" + W + "," + base + " L" + W + ",0 Z";
 
     el.innerHTML =
-      '<svg viewBox="0 0 ' + W + ' 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><linearGradient id="choco" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0" stop-color="#5A3520"/><stop offset="0.55" stop-color="#4A2C1E"/><stop offset="1" stop-color="#38200F"/>' +
-      '</linearGradient></defs>' +
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs>' +
+      '<linearGradient id="choco" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="#7A5333"/><stop offset="0.26" stop-color="#55311C"/>' +
+      '<stop offset="0.7" stop-color="#3A2011"/><stop offset="1" stop-color="#281506"/>' +
+      '</linearGradient>' +
+      '<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="rgba(255,240,225,.5)"/><stop offset="1" stop-color="rgba(255,240,225,0)"/>' +
+      '</linearGradient>' +
+      '</defs>' +
       '<path d="' + d + '" fill="url(#choco)"/>' +
-      '<path d="M0,3 H' + W + '" stroke="rgba(255,255,255,.16)" stroke-width="3"/>' +
-      stals + '</svg>';
+      '<rect x="0" y="0" width="' + W + '" height="10" fill="url(#gloss)"/>' +
+      '<path d="M0,4.5 H' + W + '" stroke="rgba(255,246,238,.35)" stroke-width="2.5"/>' +
+      highlights +
+      '</svg>';
 
-    // gotas que caem (HTML sobreposto)
+    // gotas que se soltam e caem
     if (reduce) return;
-    var beads = [12, 30, 50, 69, 87];
-    beads.forEach(function (leftPct, k) {
+    drips.filter(function (dp) { return dp.len > 40; }).slice(0, 6).forEach(function (dp, k) {
       var b = document.createElement("span");
       b.className = "bead";
-      b.style.left = leftPct + "%";
-      b.style.animationDelay = (k * 0.62).toFixed(2) + "s";
+      b.style.left = (dp.cx / W * 100).toFixed(2) + "%";
+      b.style.top = (dp.len + base - 6) + "px";
+      b.style.animationDelay = (k * 0.5 + rnd()).toFixed(2) + "s";
       el.appendChild(b);
     });
   }

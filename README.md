@@ -21,12 +21,21 @@ Paleta da marca: **rosa + creme + menta (turquesa)**. Logótipo real incluído. 
 ```
 index.html      → página principal
 encomenda.html  → construtor de encomenda (→ WhatsApp)
+admin.html      → painel PRIVADO para escolher a foto de capa
 styles.css      → design e responsividade (paleta em :root)
-config.js       → nº de WhatsApp e Instagram (EDITAR)
-script.js       → menu, carrossel, chocolate a escorrer, animações
+config.js       → nº de WhatsApp, Instagram e foto de capa (EDITAR)
+script.js       → menu, carrossel, reel, chocolate a escorrer, animações
 encomenda.js    → lógica do pedido e mensagem de WhatsApp
+admin.js        → lógica do painel da capa
 assets/         → logótipo e fotografias dos produtos
 ```
+
+## 🎂 Painel privado da capa (`admin.html`)
+
+Abra **`/admin.html`** (página não listada no site) para escolher a fotografia
+de capa (hero). A escolha fica guardada **nesse dispositivo** para pré-visualizar.
+Para a tornar oficial para todos os visitantes, edite a linha `heroImage` em
+`config.js` (o painel mostra a linha exata a copiar).
 
 ## ⚙️ Personalizar (importante)
 

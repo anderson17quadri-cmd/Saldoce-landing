@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#E8709B" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Painel • Sal Doce</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="assets/logo.png" />
+  <style>
+    .admin { max-width: 1000px; margin: 0 auto; padding: 40px 22px 90px; }
+    .admin-head { text-align: center; margin-bottom: 30px; }
+    .admin-head img { height: 60px; margin: 0 auto 12px; }
+    .admin-head h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); font-weight: 600; }
+    .admin-head p { color: var(--plum-suave); font-weight: 300; max-width: 40rem; margin: 6px auto 0; }
+    .pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin-top: 24px; }
+    .pick { position: relative; border: 3px solid transparent; border-radius: 18px; overflow: hidden; cursor: pointer; aspect-ratio: 4/5; box-shadow: var(--sombra-sm); background: var(--rosa-suave); transition: transform .2s var(--ease); }
+    .pick:hover { transform: translateY(-4px); }
+    .pick img { width: 100%; height: 100%; object-fit: cover; }
+    .pick.sel { border-color: var(--rosa-forte); }
+    .pick .tick { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: var(--rosa-forte); color: #fff; display: none; align-items: center; justify-content: center; font-size: 1rem; box-shadow: var(--sombra-sm); }
+    .pick.sel .tick { display: flex; }
+    .admin-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin-top: 30px; }
+    .snippet { margin-top: 26px; background: #2b1a22; color: #ffd9e6; border-radius: 14px; padding: 16px 18px; font-family: ui-monospace, monospace; font-size: .86rem; overflow-x: auto; }
+    .note { background: var(--menta-suave); border-radius: 14px; padding: 16px 18px; margin-top: 22px; font-size: .9rem; color: var(--plum); }
+    .note b { color: var(--menta-forte); }
+  </style>
+</head>
+<body>
+  <div class="admin">
+    <div class="admin-head">
+      <img src="assets/logo.png" alt="Sal Doce" />
+      <h1>Painel da capa 🎂</h1>
+      <p>Escolha a fotografia que aparece em destaque no topo do site. A pré-visualização fica guardada neste telemóvel.</p>
+    </div>
+
+    <div class="pick-grid" id="grid"></div>
+
+    <div class="admin-bar">
+      <button class="btn btn-ghost" id="resetBtn">↺ Repor predefinição</button>
+      <a class="btn btn-primary" href="index.html" target="_blank" rel="noopener">👁️ Ver o site</a>
+    </div>
+
+    <div class="note">
+      <b>Como funciona:</b> ao clicar numa foto, ela fica como capa <b>neste dispositivo</b> (ótimo para experimentar).
+      Para a deixar oficial <b>para todos os visitantes</b>, altere uma linha no ficheiro <code>config.js</code>
+      (ou envie-me a escolha e eu deixo permanente):
+    </div>
+    <div class="snippet" id="snippet">heroImage: "assets/cake-berry.webp",</div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
