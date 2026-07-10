@@ -25,6 +25,23 @@
     if (src) heroImg.src = src;
   }
 
+  /* 1b2) Bolos em destaque — do painel (localStorage) ou config */
+  var bolosBox = document.querySelector("[data-bolos]");
+  if (bolosBox) {
+    var bolos = null;
+    try { bolos = JSON.parse(localStorage.getItem("saldoce_bolos")); } catch (e) {}
+    if (!bolos || !bolos.length) bolos = CFG.bolos;
+    if (bolos && bolos.length) {
+      bolosBox.innerHTML = bolos.map(function (b, i) {
+        var mc = (i % 2 === 1) ? " menta" : "";
+        var nm = escapeHtml(b.name || "");
+        return '<figure class="bolo"><img src="' + b.img + '" alt="' + nm + '" loading="lazy">' +
+          '<figcaption class="bolo-tag' + mc + '">' + nm + '</figcaption></figure>';
+      }).join("");
+    }
+  }
+  function escapeHtml(s) { return String(s).replace(/[&<>"]/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]; }); }
+
   /* 1c) Reel — slideshow automático */
   var reel = document.querySelector("[data-reel]");
   if (reel) {

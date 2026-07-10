@@ -10,6 +10,15 @@ window.SALDOCE = {
   // Foto de capa (hero). Pode escolher no painel privado: admin.html
   heroImage: "assets/cake-berry.webp",
 
+  // Bolos em destaque (secção "Bolos personalizados"). Editável no admin.html
+  bolos: [
+    { img: "assets/cake-redbow.webp", name: "Bolo festa de chocolate" },
+    { img: "assets/cake-berry.webp", name: "Frutos vermelhos" },
+    { img: "assets/cake-butterfly.webp", name: "Temático borboletas" },
+    { img: "assets/cake-hero.jpg", name: "Rosa & dourado" },
+    { img: "assets/cake-white.webp", name: "Clássico de aniversário" }
+  ],
+
   // Envio das encomendas para a app Sal Doce Premium (Supabase).
   // As encomendas passam a aparecer diretamente na app.
   supabase: {
