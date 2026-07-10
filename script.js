@@ -36,11 +36,21 @@
   // 2) valores guardados no site (Supabase) — sobrepõem, para todos os visitantes
   var _s = CFG.supabase;
   if (_s && _s.url) {
-    var cfgUrl = _s.url + "/storage/v1/object/public/" + (_s.bucket || "Photos") + "/" + (_s.configFile || "site-config.json") + "?t=" + Date.now();
-    fetch(cfgUrl, { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (cfg) { if (cfg) { if (cfg.heroImage) applyHero(cfg.heroImage); if (cfg.bolos && cfg.bolos.length) applyBolos(cfg.bolos); } })
-      .catch(function () {});
+    var _base = _s.url + "/storage/v1/object", _bucket = _s.bucket || "Photos";
+    fetch(_base + "/list/" + _bucket, {
+      method: "POST",
+      headers: { "apikey": _s.anonKey, "Authorization": "Bearer " + _s.anonKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ prefix: "", limit: 1000, sortBy: { column: "name", order: "desc" } })
+    }).then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
+      var cfgs = (list || []).map(function (o) { return o.name; })
+        .filter(function (n) { return n.indexOf("site-config-") === 0 && /\.json$/.test(n); });
+      cfgs.sort();
+      var name = cfgs.length ? cfgs[cfgs.length - 1] : (_s.configFile || "site-config.json");
+      return fetch(_base + "/public/" + _bucket + "/" + name + "?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; });
+    }).then(function (cfg) {
+      if (cfg) { if (cfg.heroImage) applyHero(cfg.heroImage); if (cfg.bolos && cfg.bolos.length) applyBolos(cfg.bolos); }
+    }).catch(function () {});
   }
 
   /* 1c) Reel — slideshow automático */

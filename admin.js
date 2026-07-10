@@ -25,12 +25,29 @@
   function uploadImage(dataUrl, prefix) {
     return uploadBlob(prefix + "-" + Date.now() + ".jpg", dataURLtoBlob(dataUrl), "image/jpeg");
   }
+  function listRoot() {
+    return fetch(S.url + "/storage/v1/object/list/" + BUCKET, {
+      method: "POST",
+      headers: { "apikey": S.anonKey, "Authorization": "Bearer " + S.anonKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ prefix: "", limit: 1000, sortBy: { column: "name", order: "desc" } })
+    }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
+  }
+  function latestConfigName(list) {
+    var cfgs = (list || []).map(function (o) { return o.name; })
+      .filter(function (n) { return n.indexOf("site-config-") === 0 && /\.json$/.test(n); });
+    cfgs.sort();
+    return cfgs.length ? cfgs[cfgs.length - 1] : CFGFILE;
+  }
   function loadRemoteConfig() {
-    return fetch(publicUrl(CFGFILE) + "?t=" + Date.now(), { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    return listRoot().then(function (list) {
+      return fetch(publicUrl(latestConfigName(list)) + "?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; });
+    }).catch(function () { return null; });
   }
   function saveRemoteConfig(cfg) {
-    return uploadBlob(CFGFILE, new Blob([JSON.stringify(cfg)], { type: "application/json" }), "application/json");
+    // ficheiro novo com data (o anon pode criar, mas não sobrescrever)
+    var name = "site-config-" + Date.now() + ".json";
+    return uploadBlob(name, new Blob([JSON.stringify(cfg)], { type: "application/json" }), "application/json");
   }
 
   /* ---------- Redimensionar imagem do dispositivo ---------- */
