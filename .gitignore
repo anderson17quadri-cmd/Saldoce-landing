@@ -1,0 +1,12 @@
+# Dependências / temporários
+node_modules/
+package.json
+package-lock.json
+
+# Export do Instagram (fonte das fotos, não versionar)
+_extract/
+
+# Ficheiros temporários de pré-visualização
+_*.png
+_*.js
+_*.html
