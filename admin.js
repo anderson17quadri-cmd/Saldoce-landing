@@ -76,16 +76,28 @@
 
   /* ---------- Estado ---------- */
   var LIB = [
-    ["assets/cake-berry.webp", "Frutos vermelhos"],
-    ["assets/cake-hero.jpg", "Rosa & dourado"],
+    ["assets/new-hero.jpg", "Rosa & rosas"],
+    ["assets/nb-berries.jpg", "Frutos vermelhos"],
+    ["assets/nb-chocodrip.jpg", "Chocolate & frutos"],
+    ["assets/nb-heart.jpg", "Coração"],
+    ["assets/nb-lavender.jpg", "Minimalista lavanda"],
+    ["assets/nb-daisies.jpg", "Branco & margaridas"],
+    ["assets/nb-melancia.jpg", "Melancia"],
+    ["assets/ng-morangos.jpg", "Morangos"],
+    ["assets/ng-happy.jpg", "Happy Birthday"],
+    ["assets/ng-happy2.jpg", "Rosa Happy"],
+    ["assets/ng-twenty.jpg", "Twenty"],
+    ["assets/ng-27.jpg", "Elegante 27"],
+    ["assets/ng-anayah.jpg", "Flores Anayah"],
+    ["assets/ng-corais.jpg", "Pétalas"],
+    ["assets/ng-flores19.jpg", "Flores 19"],
+    ["assets/ng-sereia.jpg", "Sereia"],
+    ["assets/ng-unicornio.jpg", "Unicórnio"],
+    ["assets/ng-dino.jpg", "Dinossauros"],
     ["assets/cake-butterfly.webp", "Borboletas"],
-    ["assets/cake-redbow.webp", "Chocolate c/ laço"],
-    ["assets/cake-white.webp", "Branco aniversário"],
     ["assets/kitkat.webp", "Ovo de colher"],
     ["assets/g1-brigadeiros.webp", "Brigadeiros"],
-    ["assets/morango.webp", "Morango do amor"],
-    ["assets/brig-box.webp", "Caixa brigadeiros"],
-    ["assets/box-mae.webp", "Box presente"]
+    ["assets/morango.webp", "Morango do amor"]
   ];
   var heroImage = CFG.heroImage || "assets/cake-berry.webp";
   var bolos = (CFG.bolos || []).map(function (b) { return { img: b.img, name: b.name }; });

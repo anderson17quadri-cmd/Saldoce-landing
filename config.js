@@ -8,15 +8,16 @@ window.SALDOCE = {
   instagram: "https://www.instagram.com/saldoce.pt",
 
   // Foto de capa (hero). Pode escolher no painel privado: admin.html
-  heroImage: "assets/cake-berry.webp",
+  heroImage: "assets/new-hero.jpg",
 
   // Bolos em destaque (secção "Bolos personalizados"). Editável no admin.html
   bolos: [
-    { img: "assets/cake-redbow.webp", name: "Bolo festa de chocolate" },
-    { img: "assets/cake-berry.webp", name: "Frutos vermelhos" },
-    { img: "assets/cake-butterfly.webp", name: "Temático borboletas" },
-    { img: "assets/cake-hero.jpg", name: "Rosa & dourado" },
-    { img: "assets/cake-white.webp", name: "Clássico de aniversário" }
+    { img: "assets/nb-berries.jpg", name: "Frutos vermelhos" },
+    { img: "assets/nb-chocodrip.jpg", name: "Chocolate & frutos" },
+    { img: "assets/nb-lavender.jpg", name: "Minimalista lavanda" },
+    { img: "assets/nb-heart.jpg", name: "Coração" },
+    { img: "assets/nb-daisies.jpg", name: "Branco & margaridas" },
+    { img: "assets/nb-melancia.jpg", name: "Melancia" }
   ],
 
   // Envio das encomendas para a app Sal Doce Premium (Supabase).
