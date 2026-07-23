@@ -483,3 +483,73 @@ textarea.input { resize: vertical; min-height: 90px; }
   .intro { display: none; }
   html { scroll-behavior: auto; }
 }
+
+/* =========================================================
+   CAMADA DE ELEVAÇÃO — acabamento "premium / Figma"
+   ========================================================= */
+:root {
+  --sombra-sm: 0 2px 8px rgba(70,40,58,.05), 0 10px 26px rgba(70,40,58,.06);
+  --sombra-md: 0 6px 16px rgba(214,76,130,.10), 0 22px 50px rgba(214,76,130,.14);
+  --sombra-lg: 0 12px 30px rgba(214,76,130,.14), 0 44px 100px rgba(214,76,130,.22);
+}
+
+/* textura subtil (grain) em todo o site */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* eyebrow editorial (maiúsculas + tracking) */
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .7rem; font-weight: 600; }
+/* linha-acento sob os títulos de secção */
+.section-head h2 { letter-spacing: -.02em; }
+.section-head h2::after { content: ""; display: block; width: 54px; height: 3px; margin: 18px auto 0; border-radius: 3px; background: linear-gradient(90deg, var(--rosa), var(--menta)); }
+.hero-title { letter-spacing: -.02em; }
+
+/* botões com brilho interior */
+.btn-primary { box-shadow: 0 10px 24px rgba(214,76,130,.30), inset 0 1px 0 rgba(255,255,255,.4); }
+.btn-menta { box-shadow: 0 10px 24px rgba(63,167,156,.28), inset 0 1px 0 rgba(255,255,255,.4); }
+
+/* nav em pílula (desktop) */
+@media (min-width: 761px) {
+  .nav-links { background: rgba(255,255,255,.55); backdrop-filter: blur(10px); border: 1px solid rgba(231,211,188,.6); padding: 9px 20px; border-radius: 999px; box-shadow: var(--sombra-sm); }
+  .nav-links a::after { bottom: -3px; }
+}
+
+/* hero — moldura dupla + anel dourado + realce */
+.hero-photo { box-shadow: var(--sombra-lg), 0 0 0 1px rgba(201,161,91,.25); }
+.hero-visual::after { content: ""; position: absolute; inset: -16px; border-radius: 44px; border: 1.5px dashed rgba(201,161,91,.4); pointer-events: none; z-index: 0; }
+.hero-badge-1 { top: 24px; right: -14px; left: auto; }
+
+/* cartão de avaliação flutuante (estilo UI) */
+.hero-rating { position: absolute; z-index: 3; left: -20px; bottom: 42px; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 14px; border-radius: 18px; box-shadow: var(--sombra-md); animation: floaty 4.5s ease-in-out infinite; animation-delay: 1.2s; }
+.hr-avatars { display: flex; }
+.hr-avatars span { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 600; color: #fff; border: 2px solid #fff; margin-left: -11px; font-family: var(--ff-head); }
+.hr-avatars span:nth-child(1) { margin-left: 0; background: linear-gradient(135deg, var(--menta), var(--menta-forte)); }
+.hr-avatars span:nth-child(2) { background: linear-gradient(135deg, var(--rosa), var(--rosa-forte)); }
+.hr-avatars span:nth-child(3) { background: linear-gradient(135deg, var(--dourado), var(--dourado-cl)); }
+.hr-text strong { display: block; color: var(--dourado); font-size: .8rem; letter-spacing: 1.5px; }
+.hr-text small { color: var(--plum-suave); font-size: .72rem; }
+
+/* cards com escurecer suave da foto */
+.card-media { position: relative; }
+.card-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 62%, rgba(63,34,51,.22)); opacity: 0; transition: opacity .3s ease; }
+.card:hover .card-media::after { opacity: 1; }
+
+/* testemunhos com avatar + nome */
+.review figcaption { display: flex; align-items: center; gap: 12px; }
+.rv-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--a, linear-gradient(135deg, var(--rosa), var(--rosa-forte))); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--ff-head); font-weight: 600; font-size: 1.15rem; flex: 0 0 auto; box-shadow: var(--sombra-sm); }
+.rv-name { display: flex; flex-direction: column; line-height: 1.25; }
+.rv-name small { color: var(--plum-suave); font-weight: 400; font-size: .74rem; font-style: normal; }
+
+/* pequenos refinamentos */
+.strip-item { border-radius: 22px; }
+.g-item { border-radius: 20px; }
+.reel-phone { box-shadow: var(--sombra-lg), 0 0 0 1px rgba(201,161,91,.18); }
+
+@media (max-width: 520px) {
+  .hero-rating { left: 4px; bottom: 14px; padding: 9px 13px; }
+  .hr-avatars span { width: 26px; height: 26px; }
+  .hero-visual::after { inset: -8px; border-radius: 34px; }
+}
