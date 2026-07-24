@@ -256,6 +256,33 @@
     }).catch(function () {});
   }
 
+  /* ---- Push para a app Sal Doce (Expo) — lê os tokens guardados no bucket ---- */
+  function sendExpoPush(o) {
+    var s = CFG.supabase;
+    if (!s || !s.url) return Promise.resolve();
+    var bucket = s.bucket || "Photos";
+    var body = (o.contacto.nome || "Cliente") + " — abre a app para ver os detalhes.";
+    return fetch(s.url + "/storage/v1/object/list/" + bucket, {
+      method: "POST",
+      headers: { "apikey": s.anonKey, "Authorization": "Bearer " + s.anonKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ prefix: "", limit: 1000 })
+    }).then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
+      var files = (list || []).map(function (x) { return x.name; }).filter(function (n) { return /^pushtoken-.*\.json$/.test(n); });
+      return Promise.all(files.map(function (n) {
+        return fetch(s.url + "/storage/v1/object/public/" + bucket + "/" + n + "?t=" + Date.now(), { cache: "no-store" })
+          .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+      }));
+    }).then(function (toks) {
+      var msgs = (toks || []).filter(function (t) { return t && t.token; }).map(function (t) {
+        return { to: t.token, title: "🧾 Nova encomenda — Sal Doce", body: body, sound: "default", priority: "high", channelId: "orders" };
+      });
+      if (!msgs.length) return;
+      return fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(msgs)
+      });
+    }).catch(function () {});
+  }
+
   function setHint(t, ok) {
     var h = document.getElementById("sendHint");
     if (!h) return;
@@ -288,7 +315,8 @@
     sending = true; sendBtn.style.opacity = ".7"; sendBtn.style.pointerEvents = "none";
     sendBtn.innerHTML = '<span class="wa-icon" aria-hidden="true">⏳</span> A enviar…';
 
-    notifyNtfy(o); // avisa o dono da nova encomenda (push, mesmo fechada)
+    notifyNtfy(o);   // aviso via ntfy (backup, funciona já)
+    sendExpoPush(o); // push dentro da app Sal Doce (quando o Firebase estiver ativo)
     var task = supaOn ? sendToSupabase(buildRow(o)) : Promise.resolve({ skipped: true });
     task.then(function () {
       setHint(supaOn ? "✅ Encomenda registada! A abrir o WhatsApp para confirmar…" : "A abrir o WhatsApp…", true);
