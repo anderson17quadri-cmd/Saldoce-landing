@@ -233,6 +233,29 @@
       return { ok: true };
     });
   }
+  /* ---- Notificação push (ntfy.sh) — avisa mesmo com tudo fechado ---- */
+  function notifyNtfy(o) {
+    var n = CFG.ntfy;
+    if (!n || !n.enabled || !n.topic) return Promise.resolve();
+    var partes = [];
+    if (o.bolo.tem) partes.push("bolo");
+    if (o.brigadeiros.length) partes.push("brigadeiros");
+    if (o.salgados.length) partes.push("salgados");
+    var resumo = (partes.length ? partes.join(" + ") : "encomenda");
+    var quem = o.contacto.nome || "Cliente";
+    var quando = o.bolo.data ? " · " + fmtDate(o.bolo.data) : "";
+    return fetch((n.server || "https://ntfy.sh"), {
+      method: "POST",
+      body: JSON.stringify({
+        topic: n.topic,
+        title: "🧾 Nova encomenda — Sal Doce",
+        message: quem + " — " + resumo + quando + "\nAbre a app para ver os detalhes.",
+        priority: 5,
+        tags: ["cake", "bell"]
+      })
+    }).catch(function () {});
+  }
+
   function setHint(t, ok) {
     var h = document.getElementById("sendHint");
     if (!h) return;
@@ -265,6 +288,7 @@
     sending = true; sendBtn.style.opacity = ".7"; sendBtn.style.pointerEvents = "none";
     sendBtn.innerHTML = '<span class="wa-icon" aria-hidden="true">⏳</span> A enviar…';
 
+    notifyNtfy(o); // avisa o dono da nova encomenda (push, mesmo fechada)
     var task = supaOn ? sendToSupabase(buildRow(o)) : Promise.resolve({ skipped: true });
     task.then(function () {
       setHint(supaOn ? "✅ Encomenda registada! A abrir o WhatsApp para confirmar…" : "A abrir o WhatsApp…", true);

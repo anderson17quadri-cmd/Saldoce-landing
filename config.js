@@ -34,4 +34,12 @@ window.SALDOCE = {
     bucket: "Photos",
     configFile: "site-config.json",
   },
+
+  // Notificação de nova encomenda (push mesmo com tudo fechado, via ntfy.sh)
+  // Instale a app "ntfy" e subscreva o tópico abaixo para receber os avisos.
+  ntfy: {
+    enabled: true,
+    server: "https://ntfy.sh",
+    topic: "saldoce-ord-63d687b8abde0c5a",
+  },
 };
