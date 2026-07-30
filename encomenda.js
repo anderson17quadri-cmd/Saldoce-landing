@@ -226,6 +226,7 @@
     if (!s || !s.enabled) return Promise.resolve({ skipped: true });
     return fetch(s.url + "/rest/v1/" + (s.table || "orders"), {
       method: "POST",
+      keepalive: true,
       headers: { "apikey": s.anonKey, "Authorization": "Bearer " + s.anonKey, "Content-Type": "application/json", "Prefer": "return=minimal" },
       body: JSON.stringify(row)
     }).then(function (r) {
@@ -246,6 +247,7 @@
     var quando = o.bolo.data ? " · " + fmtDate(o.bolo.data) : "";
     return fetch((n.server || "https://ntfy.sh"), {
       method: "POST",
+      keepalive: true, // o pedido tem de sobreviver ao telemóvel trocar para o WhatsApp logo a seguir
       body: JSON.stringify({
         topic: n.topic,
         title: "🧾 Nova encomenda — Sal Doce",
@@ -264,12 +266,13 @@
     var body = (o.contacto.nome || "Cliente") + " — abre a app para ver os detalhes.";
     return fetch(s.url + "/storage/v1/object/list/" + bucket, {
       method: "POST",
+      keepalive: true,
       headers: { "apikey": s.anonKey, "Authorization": "Bearer " + s.anonKey, "Content-Type": "application/json" },
       body: JSON.stringify({ prefix: "", limit: 1000 })
     }).then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
       var files = (list || []).map(function (x) { return x.name; }).filter(function (n) { return /^pushtoken-.*\.json$/.test(n); });
       return Promise.all(files.map(function (n) {
-        return fetch(s.url + "/storage/v1/object/public/" + bucket + "/" + n + "?t=" + Date.now(), { cache: "no-store" })
+        return fetch(s.url + "/storage/v1/object/public/" + bucket + "/" + n + "?t=" + Date.now(), { cache: "no-store", keepalive: true })
           .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
       }));
     }).then(function (toks) {
@@ -277,8 +280,10 @@
         return { to: t.token, title: "🧾 Nova encomenda — Sal Doce", body: body, sound: "default", priority: "high", channelId: "orders" };
       });
       if (!msgs.length) return;
+      // Pedido pequeno (cabe no limite do keepalive) — garante que sai mesmo que a
+      // página seja logo trocada pelo WhatsApp a seguir ao clique em "Enviar".
       return fetch("https://exp.host/--/api/v2/push/send", {
-        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(msgs)
+        method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify(msgs)
       });
     }).catch(function () {});
   }
@@ -315,10 +320,14 @@
     sending = true; sendBtn.style.opacity = ".7"; sendBtn.style.pointerEvents = "none";
     sendBtn.innerHTML = '<span class="wa-icon" aria-hidden="true">⏳</span> A enviar…';
 
-    notifyNtfy(o);   // aviso via ntfy (backup, funciona já)
-    sendExpoPush(o); // push dentro da app Sal Doce (quando o Firebase estiver ativo)
+    var notifyTask = notifyNtfy(o);   // aviso via ntfy (backup, funciona já)
+    var pushTask = sendExpoPush(o);   // push dentro da app Sal Doce (quando o Firebase estiver ativo)
     var task = supaOn ? sendToSupabase(buildRow(o)) : Promise.resolve({ skipped: true });
-    task.then(function () {
+    // Espera também pelos avisos (não só pela gravação) antes de saltar para o
+    // WhatsApp — assim que o telemóvel troca de app, pedidos ainda a meio ficam
+    // à espera minutos ou nunca chegam. notifyTask/pushTask nunca rejeitam (têm
+    // .catch próprio), por isso só falham aqui se a gravação em si falhar.
+    Promise.all([task, notifyTask, pushTask]).then(function () {
       setHint(supaOn ? "✅ Encomenda registada! A abrir o WhatsApp para confirmar…" : "A abrir o WhatsApp…", true);
       if (waWin) waWin.location = waUrl; else if (alsoWA) window.location.href = waUrl;
     }).catch(function (err) {
