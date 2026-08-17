@@ -5,7 +5,8 @@
   var CFG = window.SALDOCE || { whatsapp: "351000000000", instagram: "https://www.instagram.com/saldoce.pt" };
 
   var BRIGADEIROS = ["Tradicional", "Beijinho", "Morango", "Ninho", "Churros", "Sensação",
-    "Sedução", "Casadinho", "Prestígio", "Oreo", "Napolitano", "Café"];
+    "Sedução", "Casadinho", "Prestígio", "Oreo", "Napolitano", "Café",
+    "Trufa de Limão", "Trufa de Maracujá", "Trufa de Morango", "Trufa de Chocolate", "Trufa de Beijinho"];
 
   var SALGADOS = ["Coxinha", "Rissol de carne", "Rissol misto", "Bolinha de queijo",
     "Pastel de frango", "Pastel de carne", "Pastel de pizza (misto)",
@@ -64,6 +65,7 @@
     o.bolo.adicionais = Array.prototype.map.call(document.querySelectorAll('input[name="adicional"]:checked'), function (i) { return i.value; });
     o.bolo.tamanho = val("tamanho");
     o.bolo.data = val("data");
+    o.bolo.hora = val("hora");
     o.bolo.decoracao = val("decoracao").trim();
     o.bolo.tem = !!(o.bolo.massa || o.bolo.recheios.length || o.bolo.tamanho || o.bolo.decoracao);
 
@@ -120,7 +122,7 @@
       if (o.bolo.recheios.length) b.push("Recheio: " + o.bolo.recheios.join(", "));
       if (o.bolo.adicionais.length) b.push("Adicionais: " + o.bolo.adicionais.join(", "));
       if (o.bolo.tamanho) b.push("Tamanho: " + o.bolo.tamanho);
-      if (o.bolo.data) b.push("Data: " + fmtDate(o.bolo.data));
+      if (o.bolo.data) b.push("Data: " + fmtDate(o.bolo.data) + (o.bolo.hora ? " às " + o.bolo.hora : ""));
       if (o.bolo.decoracao) b.push("Decoração: " + o.bolo.decoracao);
       html += sec("🎂 Bolo", b);
     }
@@ -151,7 +153,7 @@
     L.push("🧁 *NOVA ENCOMENDA — Sal Doce*");
     L.push("");
     if (o.contacto.nome) L.push("👤 *Nome:* " + o.contacto.nome);
-    if (o.bolo.data) L.push("📅 *Data:* " + fmtDate(o.bolo.data));
+    if (o.bolo.data) L.push("📅 *Data:* " + fmtDate(o.bolo.data) + (o.bolo.hora ? " às " + o.bolo.hora : ""));
     if (o.contacto.entrega) L.push("📍 *" + o.contacto.entrega + "*");
     if (o.contacto.nome || o.bolo.data || o.contacto.entrega) L.push("");
 
@@ -182,7 +184,7 @@
   }
 
   /* ---- Mapeamento para a base de dados da app (Supabase) ---- */
-  var BRIG_KEY = { "Tradicional": "tradicional", "Beijinho": "beijinho", "Morango": "morango", "Ninho": "ninho", "Churros": "churros", "Sensação": "sensacao", "Sedução": "seducao", "Casadinho": "casadinho", "Prestígio": "prestigio", "Oreo": "oreo", "Napolitano": "napolitano", "Café": "cafe" };
+  var BRIG_KEY = { "Tradicional": "tradicional", "Beijinho": "beijinho", "Morango": "morango", "Ninho": "ninho", "Churros": "churros", "Sensação": "sensacao", "Sedução": "seducao", "Casadinho": "casadinho", "Prestígio": "prestigio", "Oreo": "oreo", "Napolitano": "napolitano", "Café": "cafe", "Trufa de Limão": "trufaLimao", "Trufa de Maracujá": "trufaMaracuja", "Trufa de Morango": "trufaMorango", "Trufa de Chocolate": "trufaChocolate", "Trufa de Beijinho": "trufaBeijinho" };
   var SALG_KEY = { "Coxinha": "coxinha", "Rissol de carne": "rissoisCarne", "Rissol misto": "rissoisMistos", "Bolinha de queijo": "bolinhasQueijo", "Pastel de frango": "pastelFrango", "Pastel de carne": "pastelCarne", "Pastel de pizza (misto)": "pastelPizza", "Enroladinho de salsicha": "enroladinho", "Pastel de bacalhau": "pastelBacalhau" };
 
   function parseWeight(t) { if (!t) return 0; var m = String(t).replace(",", ".").match(/[\d.]+/); return m ? parseFloat(m[0]) : 0; }
@@ -215,7 +217,7 @@
       salgados: salg, brigadeiros: brig,
       price: 0, photo_uri: null,
       source_channel: (CFG.supabase && CFG.supabase.sourceChannel) || "Site",
-      delivery_time: null,
+      delivery_time: o.bolo.hora || null,
       notes: notes.join(" | "),
       status: "pending",
       created_at: now, updated_at: now
